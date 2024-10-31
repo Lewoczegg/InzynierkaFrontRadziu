@@ -10,7 +10,7 @@ const LanguageSelector = ({ language, onSelect }) => {
             <Flex alignItems="center">
                 <Text mb={1} mr={2} fontSize={'lg'}>Language: </Text>
                 <Menu isLazy>
-                    <MenuButton as={Button} >
+                    <MenuButton as={Button} mb={2}>
                         {language}
                     </MenuButton>
                     <MenuList bg="#110c1b">

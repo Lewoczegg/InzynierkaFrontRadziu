@@ -2,7 +2,7 @@ import { Box, Button, Text, useToast, Tabs, TabList, TabPanels, Tab, TabPanel } 
 import { executeCode } from "../api";
 import { useState } from "react";
 
-const Output = ({ editorRef, language }) => {
+const Output = ({ editorRef, language, taskId }) => {
     const toast = useToast();
     const [tests, setTests] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -18,11 +18,10 @@ const Output = ({ editorRef, language }) => {
         }
         try {
             setIsLoading(true);
-            const { result } = await executeCode(language, sourceCode);
+            const { result } = await executeCode(language, sourceCode, taskId); // Przekazywanie dynamicznego `taskId`
 
             if (result.success) {
                 setIsError(false);
-
                 const outputLines = result.output.trim().split('\n');
 
                 // Usuwamy ostatnią linię jeśli jest podsumowaniem
@@ -41,7 +40,6 @@ const Output = ({ editorRef, language }) => {
 
                     if (matchPassed) {
                         const [, inputValue, resultValue] = matchPassed;
-
                         return {
                             status: 'passed',
                             input: inputValue,
@@ -51,7 +49,6 @@ const Output = ({ editorRef, language }) => {
                         };
                     } else if (matchFailed) {
                         const [, inputValue, expectedValue, actualValue] = matchFailed;
-
                         return {
                             status: 'failed',
                             input: inputValue,
@@ -122,7 +119,7 @@ const Output = ({ editorRef, language }) => {
     };
 
     return (
-        <Box w={'100%'} >
+        <Box w={'100%'}>
             <Button variant='outline' colorScheme='blue' mb={4} isLoading={isLoading} onClick={runCode}>
                 Run code
             </Button>
@@ -133,10 +130,10 @@ const Output = ({ editorRef, language }) => {
                 <>
                     <Box mt={4} mb={2} ml={1} w={'100%'}>
                         <Text fontSize="lg" fontWeight="bold" color={passPercentage === 100 ? 'green.500' : 'yellow.500'}>
-                        {passPercentage}% Tests passed
+                            {passPercentage}% Tests passed
                         </Text>
                     </Box>
-                    <Tabs variant='soft-rounded' colorScheme='gray' mt={4} >
+                    <Tabs variant='soft-rounded' colorScheme='gray' mt={4}>
                         <TabList>
                             {tests.map((test, index) => (
                                 <Tab key={index} color={test.status === 'failed' ? 'red.500' : 'green.500'}>

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from './theme.js'
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // Ważne: Musi być Router
+import { BrowserRouter as Router } from "react-router-dom"; // Ważne: Musi być Router
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
