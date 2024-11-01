@@ -27,9 +27,9 @@ API.interceptors.request.use(
   
 
 // Funkcja do rejestracji użytkownika
-export const registerUser = async (username, password) => {
+export const registerUser = async (userData) => {
     try {
-        const response = await API.post("/register", { username, password });
+        const response = await API.post("api/auth/register", userData);
         return response.data;
     } catch (error) {
         throw new Error(error.response?.data?.message || "Registration failed");
