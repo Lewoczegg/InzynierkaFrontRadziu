@@ -12,6 +12,48 @@ export const executeCode = async (language, sourceCode, taskId) => {
     return response.data;
 };
 
+API.interceptors.request.use(
+    (config) => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
+  
+
+// Funkcja do rejestracji użytkownika
+export const registerUser = async (username, password) => {
+    try {
+        const response = await API.post("/register", { username, password });
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || "Registration failed");
+    }
+};
+
+// Funkcja do logowania użytkownika
+export const loginUser = async (username, password) => {
+    try {
+        const response = await API.post("/api/auth/login", { username, password });
+        if (response.data.token) {
+            // Zapisz token w localStorage
+            localStorage.setItem("token", response.data.token);
+        }
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || "Login failed");
+    }
+};
+
+// Funkcja do wylogowania (czyści token)
+export const logoutUser = () => {
+    localStorage.removeItem("token");
+};
 
 export const fetchAssignments = async () => {
     const response = await API.get("/Assignment/all");
@@ -29,8 +71,12 @@ export const fetchLessons = async () => {
 };
 
 export const fetchCourses = async () => {
-    const response = await API.get("/Courses/all");
-    return response.data;
+    try {
+        const response = await API.get("/Courses/all");
+        return response.data;
+    } catch (error) {
+        throw new Error(error.response?.data?.message || "Failed to fetch courses");
+    }
 };
 
 export const fetchSolutionsByAssignmentId = async (assignmentId) => {

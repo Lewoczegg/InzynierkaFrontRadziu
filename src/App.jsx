@@ -8,6 +8,7 @@ import Courses from './components/Courses';
 import CourseDetails from './components/CourseDetails';
 import LessonDetails from './components/LessonDetails';
 import AssignmentEditor from './components/AssignmentEditor';
+import AuthPage from './components/AuthPage';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path="/courses/:courseId" element={<CourseDetails />} />
           <Route path="/lessons/:lessonId" element={<LessonDetails />} />
           <Route path="/assignments/:assignmentId" element={<AssignmentEditor />} />
+          <Route path="/auth" element={<AuthPage />} />
         </Routes>
       </Box>
     </Box>

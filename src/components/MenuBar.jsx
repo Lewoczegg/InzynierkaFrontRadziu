@@ -1,9 +1,21 @@
-import { Flex, Box, Button } from "@chakra-ui/react";
+import { Flex, Box, Button, HStack } from "@chakra-ui/react";
 import { Link, useLocation } from "react-router-dom";
-
+import React, { useEffect, useState } from "react";
+import { logoutUser } from "../api";
 function MenuBar() {
-  const location = useLocation(); // To get the current path
+  const location = useLocation(); 
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsLoggedIn(!!token);
+  }, []);
 
+  const handleLogout = () => {
+    logoutUser();
+    setIsLoggedIn(false);
+    alert("You have been logged out.");
+    window.location.href = "/"; 
+  };
   return (
     <Flex
       as="nav"
@@ -56,16 +68,22 @@ function MenuBar() {
           </Button>
         </Link>
       </Flex>
-      <Box ml="auto">
-        <Link to="/login">
+      <HStack ml="auto" spacing={4}>
+      {isLoggedIn ? (
+        <Button onClick={handleLogout} variant="ghost" color="whiteAlpha.700">
+          Log out
+        </Button>
+      ) : (
+        <Link to="/auth">
           <Button
             variant="ghost"
-            color={location.pathname === "/login" ? "white" : "whiteAlpha.700"}
+            color={location.pathname === "/auth" ? "white" : "whiteAlpha.700"}
           >
             Log in
           </Button>
         </Link>
-      </Box>
+      )}
+    </HStack>
     </Flex>
   );
 }
