@@ -66,9 +66,6 @@ function LessonDetails() {
                 <Text fontSize="xl" mb={2}>
                   {assignment.title}
                 </Text>
-                <Text fontSize="md" color="gray.300">
-                  {assignment.description}
-                </Text>
               </Box>
             </Link>
           ))}

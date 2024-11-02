@@ -1,17 +1,35 @@
 import React, { useState } from "react";
-import { Box, Button, VStack } from "@chakra-ui/react";
+import { Box, Button, VStack, Text } from "@chakra-ui/react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
 const AuthPage = () => {
-  const [isLogin, setIsLogin] = useState(true);
+  // Przechowujemy stan, który mówi, czy użytkownik jest w widoku logowania czy rejestracji
+  const [isLoginView, setIsLoginView] = useState(true);
 
   return (
-    <Box w="100%" maxW="md" mx="auto" p={4}>
+    <Box w="100%" maxW="md" mx="auto" p={4} borderWidth="1px" borderRadius="md">
       <VStack spacing={4}>
-        {isLogin ? <LoginForm /> : <RegisterForm />}
-        <Button onClick={() => setIsLogin(!isLogin)} colorScheme="blue">
-          {isLogin ? "Go to Register" : "Go to Login"}
+        <Text fontSize="2xl" mb={4}>
+          {isLoginView ? "Login" : "Register"}
+        </Text>
+
+        {/* Renderuj LoginForm lub RegisterForm w zależności od stanu */}
+        {isLoginView ? (
+          <LoginForm />
+        ) : (
+          <RegisterForm switchToLogin={() => setIsLoginView(true)} />
+        )}
+
+        {/* Przełącznik między logowaniem a rejestracją */}
+        <Button
+          variant="link"
+          colorScheme="blue"
+          onClick={() => setIsLoginView(!isLoginView)}
+        >
+          {isLoginView
+            ? "Don't have an account? Register here."
+            : "Already have an account? Login here."}
         </Button>
       </VStack>
     </Box>

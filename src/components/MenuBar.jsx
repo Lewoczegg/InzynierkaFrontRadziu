@@ -1,21 +1,28 @@
-import { Flex, Box, Button, HStack } from "@chakra-ui/react";
-import { Link, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import { logoutUser } from "../api";
+import { Flex, Box, Button, HStack, useToast } from "@chakra-ui/react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import React from "react";
+import { useAuth } from "../context/AuthContext"; // Import useAuth
+
 function MenuBar() {
-  const location = useLocation(); 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token);
-  }, []);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const toast = useToast();
+  const { isLoggedIn, logout } = useAuth();
 
   const handleLogout = () => {
-    logoutUser();
-    setIsLoggedIn(false);
-    alert("You have been logged out.");
-    window.location.href = "/"; 
+    logout();
+
+    toast({
+      title: "Logout",
+      description: "You have been logged out successfully.",
+      status: "info",
+      duration: 6000,
+      isClosable: true,
+    });
+
+    navigate("/auth");
   };
+
   return (
     <Flex
       as="nav"
@@ -67,23 +74,35 @@ function MenuBar() {
             Assignments
           </Button>
         </Link>
+        {/* Przyciski widoczne tylko dla zalogowanych użytkowników */}
+        {isLoggedIn && (
+          <Link to="/user-profile">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/user-profile" ? "white" : "whiteAlpha.700"}
+              fontSize="sm"
+            >
+              User Profile
+            </Button>
+          </Link>
+        )}
       </Flex>
       <HStack ml="auto" spacing={4}>
-      {isLoggedIn ? (
-        <Button onClick={handleLogout} variant="ghost" color="whiteAlpha.700">
-          Log out
-        </Button>
-      ) : (
-        <Link to="/auth">
-          <Button
-            variant="ghost"
-            color={location.pathname === "/auth" ? "white" : "whiteAlpha.700"}
-          >
-            Log in
+        {isLoggedIn ? (
+          <Button onClick={handleLogout} variant="ghost" color="whiteAlpha.700">
+            Log out
           </Button>
-        </Link>
-      )}
-    </HStack>
+        ) : (
+          <Link to="/auth">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/auth" ? "white" : "whiteAlpha.700"}
+            >
+              Log in
+            </Button>
+          </Link>
+        )}
+      </HStack>
     </Flex>
   );
 }

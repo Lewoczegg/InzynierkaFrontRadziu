@@ -4,7 +4,7 @@ const API = axios.create({
 });
 
 export const executeCode = async (language, sourceCode, taskId) => {
-    const response = await API.post("/Assignment/submit", { 
+    const response = await API.post("/Assignment/run", { 
         code: sourceCode, 
         taskId: taskId, 
         language: language, 
@@ -83,3 +83,47 @@ export const fetchSolutionsByAssignmentId = async (assignmentId) => {
     const response = await API.get(`/solutions/assignment/${assignmentId}`);
     return response.data;
 };
+
+export const submitAssignment = async (taskId, language, sourceCode) => {
+    try {
+        const response = await API.post("/Assignment/submit", {
+            taskId: taskId,
+            language: language,
+            code: sourceCode,
+        });
+        return response.data; 
+    } catch (error) {
+        console.error("Failed to submit assignment:", error);
+        throw error; 
+    }
+};
+
+export const fetchLatestSubmission = async (taskId) => {
+    try {
+      const response = await API.post("/Submission/latest-submission", {
+        taskId: taskId,
+      });
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Failed to fetch the latest submission.");
+    }
+  };
+
+  export const fetchUserInfo = async () => {
+    try {
+      const response = await API.get("/api/auth/user-info");
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Failed to fetch user info.");
+    }
+  };
+  
+
+  export const fetchUserProgress = async () => {
+    try {
+      const response = await API.get("/Assignment/all-submissions");
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Failed to fetch user progress.");
+    }
+  };

@@ -1,6 +1,7 @@
 import { Box, Button, Text, useToast, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { executeCode } from "../api";
+import { executeCode, submitAssignment } from "../api";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Output = ({ editorRef, language, taskId }) => {
     const toast = useToast();
@@ -10,6 +11,7 @@ const Output = ({ editorRef, language, taskId }) => {
     const [passPercentage, setPassPercentage] = useState(0);
     const [passedTests, setPassedTests] = useState(0);
     const [totalTests, setTotalTests] = useState(0);
+    const navigate = useNavigate();
 
     const runCode = async () => {
         const sourceCode = editorRef.current.getValue();
@@ -118,12 +120,53 @@ const Output = ({ editorRef, language, taskId }) => {
         }
     };
 
+    const submitCode = async () => {
+        const sourceCode = editorRef.current.getValue();
+        if (!sourceCode) {
+            return;
+        }
+        try {
+            setIsLoading(true);
+            const { result } = await submitAssignment(taskId, language, sourceCode);
+
+            if (result.success) {
+                toast({
+                    title: "Submit",
+                    description: "Code submitted successfully!",
+                    status: "success",
+                    duration: 6000,
+                    isClosable: true,
+                });
+                navigate("/assignments");
+            } else {
+                toast({
+                    title: "Error",
+                    description: result.output || "An error occurred",
+                    status: "error",
+                    duration: 6000,
+                    isClosable: true,
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: error.response?.data?.message || "An error occurred",
+                status: "error",
+                duration: 6000,
+                isClosable: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
         <Box w={'100%'}>
             <Button variant='outline' colorScheme='blue' mb={4} isLoading={isLoading} onClick={runCode}>
                 Run code
             </Button>
-            <Button variant='outline' colorScheme='blue' bg="#4caf50" color="white" _hover={{ bg: "#45a049" }} mb={4} ml={2}>
+            <Button variant='outline' colorScheme='blue' bg="#4caf50" color="white" _hover={{ bg: "#45a049" }} mb={4} ml={2} isLoading={isLoading} onClick={submitCode}>
                 Submit
             </Button>
             {tests.length > 0 ? (

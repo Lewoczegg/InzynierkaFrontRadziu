@@ -60,9 +60,9 @@ function Assignments() {
               <Text fontSize="xl" mb={2}>
                 {assignment.title}
               </Text>
-              <Text fontSize="md" color="gray.300">
+              {/* <Text fontSize="md" color="gray.300">
                 {assignment.description}
-              </Text>
+              </Text> */}
             </Box>
           </Link>
         ))}

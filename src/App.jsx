@@ -9,6 +9,7 @@ import CourseDetails from './components/CourseDetails';
 import LessonDetails from './components/LessonDetails';
 import AssignmentEditor from './components/AssignmentEditor';
 import AuthPage from './components/AuthPage';
+import UserProfile from './components/UserProfile';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
           <Route path="/lessons/:lessonId" element={<LessonDetails />} />
           <Route path="/assignments/:assignmentId" element={<AssignmentEditor />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/user-profile" element={<UserProfile />} />
         </Routes>
       </Box>
     </Box>
