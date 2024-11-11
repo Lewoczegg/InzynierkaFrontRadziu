@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, SimpleGrid, Spinner, Center, Link } from '@chakra-ui/react';
-import { fetchAssignments } from '../api'; // Import funkcji API
+import { Box, Text, SimpleGrid, Spinner, Center } from '@chakra-ui/react';
+import { fetchVisibleAssignments } from '../api'; // Import nowej funkcji API
 import { Link as RouterLink } from 'react-router-dom';
 
 function Assignments() {
@@ -11,7 +11,7 @@ function Assignments() {
   useEffect(() => {
     const getAssignments = async () => {
       try {
-        const data = await fetchAssignments(); // Pobieranie danych z API
+        const data = await fetchVisibleAssignments(); // Zmiana na nowy endpoint do pobierania zadań
         setAssignments(data);
       } catch (err) {
         setError('Failed to fetch assignments. Please try again later.');
@@ -46,25 +46,28 @@ function Assignments() {
       </Text>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={4}>
         {assignments.map((assignment) => (
-          <Link as={RouterLink} to={`/assignments/${assignment.assignmentId}`} key={assignment.assignmentId} style={{ textDecoration: 'none' }}>
-            <Box
-              p={4}
-              bg="gray.700"
-              borderRadius="md"
-              boxShadow="md"
-              color="white"
-              cursor="pointer"
-              _hover={{ bg: "gray.600", transform: "scale(1.05)" }}
-              transition="transform 0.2s ease-in-out"
-            >
-              <Text fontSize="xl" mb={2}>
-                {assignment.title}
+          <Box
+            key={assignment.assignmentId}
+            as={assignment.available ? RouterLink : "div"} // Tylko dostępne zadania są klikalne
+            to={assignment.available ? `/assignments/${assignment.assignmentId}` : undefined} // Przekierowanie tylko jeśli zadanie jest dostępne
+            p={4}
+            bg={assignment.available ? "gray.600" : "gray.700"}
+            borderRadius="md"
+            boxShadow="md"
+            color="white"
+            cursor={assignment.available ? "pointer" : "not-allowed"}
+            _hover={assignment.available ? { bg: "gray.500", transform: "scale(1.05)" } : {}}
+            transition="transform 0.2s ease-in-out"
+          >
+            <Text fontSize="xl" mb={2}>
+              {assignment.title}
+            </Text>
+            {!assignment.available && (
+              <Text fontSize="sm" color="red.400">
+                Your level or title is too low to access this assignment.
               </Text>
-              {/* <Text fontSize="md" color="gray.300">
-                {assignment.description}
-              </Text> */}
-            </Box>
-          </Link>
+            )}
+          </Box>
         ))}
       </SimpleGrid>
     </Box>

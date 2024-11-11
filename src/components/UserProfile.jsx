@@ -69,6 +69,7 @@ const UserProfile = () => {
               <Text><b>Email:</b> {userInfo.email}</Text>
               <Text><b>Age:</b> {userInfo.age}</Text>
               <Text><b>Username:</b> {userInfo.username}</Text>
+              <Text><b>Title:</b> {userInfo.title}</Text>
             </VStack>
           ) : (
             <Text>No user information available.</Text>

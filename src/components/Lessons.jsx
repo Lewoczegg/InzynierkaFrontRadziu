@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Text, SimpleGrid, Spinner, Center, Link } from '@chakra-ui/react';
-import { fetchLessons } from '../api'; // Import funkcji API
+import { Box, Text, SimpleGrid, Spinner, Center } from '@chakra-ui/react';
+import { fetchVisibleLessons } from '../api'; // Import nowej funkcji API
 import { Link as RouterLink } from 'react-router-dom';
 
 function Lessons() {
@@ -11,7 +11,7 @@ function Lessons() {
   useEffect(() => {
     const getLessons = async () => {
       try {
-        const data = await fetchLessons(); // Pobieranie danych z API
+        const data = await fetchVisibleLessons();
         setLessons(data);
       } catch (err) {
         setError('Failed to fetch lessons. Please try again later.');
@@ -46,25 +46,31 @@ function Lessons() {
       </Text>
       <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={4}>
         {lessons.map((lesson) => (
-          <Link as={RouterLink} to={`/lessons/${lesson.lessonId}`} key={lesson.lessonId} style={{ textDecoration: 'none' }}>
-            <Box
-              p={4}
-              bg="gray.700"
-              borderRadius="md"
-              boxShadow="md"
-              color="white"
-              cursor="pointer"
-              _hover={{ bg: "gray.600", transform: "scale(1.05)" }}
-              transition="transform 0.2s ease-in-out"
-            >
-              <Text fontSize="xl" mb={2}>
-                {lesson.title}
+          <Box
+            key={lesson.lessonId}
+            p={4}
+            bg={lesson.available ? "gray.600" : "gray.700"}
+            borderRadius="md"
+            boxShadow="md"
+            color="white"
+            cursor={lesson.available ? "pointer" : "not-allowed"}
+            _hover={lesson.available ? { bg: "gray.500", transform: "scale(1.05)" } : {}}
+            transition="transform 0.2s ease-in-out"
+            as={lesson.available ? RouterLink : "div"} // Tylko dostępne lekcje są klikalne
+            to={lesson.available ? `/lessons/${lesson.lessonId}` : undefined} // Przekierowanie tylko jeśli lekcja jest dostępna
+          >
+            <Text fontSize="xl" mb={2}>
+              {lesson.title}
+            </Text>
+            <Text fontSize="md" color="gray.300" mb={2}>
+              {lesson.content}
+            </Text>
+            {!lesson.available && (
+              <Text fontSize="sm" color="red.400">
+                Your level is too low to access this lesson.
               </Text>
-              <Text fontSize="md" color="gray.300">
-                {lesson.content}
-              </Text>
-            </Box>
-          </Link>
+            )}
+          </Box>
         ))}
       </SimpleGrid>
     </Box>

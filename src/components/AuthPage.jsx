@@ -14,14 +14,12 @@ const AuthPage = () => {
           {isLoginView ? "Login" : "Register"}
         </Text>
 
-        {/* Renderuj LoginForm lub RegisterForm w zależności od stanu */}
         {isLoginView ? (
           <LoginForm />
         ) : (
           <RegisterForm switchToLogin={() => setIsLoginView(true)} />
         )}
 
-        {/* Przełącznik między logowaniem a rejestracją */}
         <Button
           variant="link"
           colorScheme="blue"

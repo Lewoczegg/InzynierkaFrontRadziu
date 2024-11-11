@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, SimpleGrid, Spinner, Center, Link } from '@chakra-ui/react';
-import { fetchAssignments } from '../api'; // Import funkcji API
+import { fetchVisibleAssignments } from '../api'; // Import nowej funkcji API
 import { useParams, Link as RouterLink } from 'react-router-dom';
 
 function LessonDetails() {
@@ -12,7 +12,7 @@ function LessonDetails() {
   useEffect(() => {
     const getAssignments = async () => {
       try {
-        const data = await fetchAssignments(); // Pobieranie wszystkich zadań
+        const data = await fetchVisibleAssignments(); // Użycie nowego endpointu do pobierania widocznych zadań
         // Filtrowanie zadań dla wybranej lekcji
         const filteredAssignments = data.filter((assignment) => assignment.lesson.lessonId === parseInt(lessonId));
         setAssignments(filteredAssignments);
@@ -52,22 +52,28 @@ function LessonDetails() {
       ) : (
         <SimpleGrid columns={{ sm: 1, md: 2, lg: 3 }} spacing={4}>
           {assignments.map((assignment) => (
-            <Link as={RouterLink} to={`/assignments/${assignment.assignmentId}`} key={assignment.assignmentId} style={{ textDecoration: 'none' }}>
-              <Box
-                p={4}
-                bg="gray.700"
-                borderRadius="md"
-                boxShadow="md"
-                color="white"
-                cursor="pointer"
-                _hover={{ bg: "gray.600", transform: "scale(1.05)" }}
-                transition="transform 0.2s ease-in-out"
-              >
-                <Text fontSize="xl" mb={2}>
-                  {assignment.title}
+            <Box
+              key={assignment.assignmentId}
+              as={assignment.available ? RouterLink : "div"} // Jeśli zadanie jest dostępne, jest klikalne, inaczej nie
+              to={assignment.available ? `/assignments/${assignment.assignmentId}` : undefined} // Przekierowanie tylko jeśli zadanie jest dostępne
+              p={4}
+              bg={assignment.available ? "gray.600" : "gray.700"}
+              borderRadius="md"
+              boxShadow="md"
+              color="white"
+              cursor={assignment.available ? "pointer" : "not-allowed"}
+              _hover={assignment.available ? { bg: "gray.500", transform: "scale(1.05)" } : {}}
+              transition="transform 0.2s ease-in-out"
+            >
+              <Text fontSize="xl" mb={2}>
+                {assignment.title}
+              </Text>
+              {!assignment.available && (
+                <Text fontSize="sm" color="red.400">
+                  Your level or title is too low to access this assignment.
                 </Text>
-              </Box>
-            </Link>
+              )}
+            </Box>
           ))}
         </SimpleGrid>
       )}
@@ -76,4 +82,3 @@ function LessonDetails() {
 }
 
 export default LessonDetails;
-

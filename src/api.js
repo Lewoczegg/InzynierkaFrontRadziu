@@ -127,3 +127,39 @@ export const fetchLatestSubmission = async (taskId) => {
       throw new Error(error.response?.data?.message || "Failed to fetch user progress.");
     }
   };
+
+  export const fetchVisibleCourses = async () => {
+    try {
+      const response = await API.get("/Courses/visible-courses");
+      return response.data;
+    } catch (error) {
+      throw new Error(error.response?.data?.message || "Failed to fetch courses.");
+    }
+  };
+
+  export const fetchVisibleLessons = async () => {
+    const response = await API.get("/Lessons/visible-lessons");
+    return response.data;
+};
+
+export const fetchVisibleAssignments = async () => {
+    const response = await API.get("/Assignment/visible-assignments");
+    return response.data;
+};
+
+export const fetchDailyQuiz = async () => {
+    try {
+        const response = await API.get("/Quiz/daily");
+        if (response.data.message && response.data.message === "Zrobiłeś już dzisiaj quiz") {
+            return response.data;
+        }
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const submitQuizResult = async (quizResult) => {
+    const response = await API.post("/QuizResult/submit", quizResult);
+    return response.data;
+};
