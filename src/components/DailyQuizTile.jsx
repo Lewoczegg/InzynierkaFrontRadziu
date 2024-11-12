@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Icon, VStack } from '@chakra-ui/react';
-import { FiAward } from 'react-icons/fi'; // Import ikony z react-icons
+import { FiAward } from 'react-icons/fi';
 import { Link as RouterLink } from 'react-router-dom';
 
 function DailyQuizTile() {
@@ -20,18 +20,15 @@ function DailyQuizTile() {
       }}
       cursor="pointer"
       textAlign="center"
-      width="260px" // Szerokość kafelka
+      width="260px"
     >
       <VStack spacing={4}>
-        {/* Ikona reprezentująca quiz */}
         <Icon as={FiAward} w={16} h={16} color="yellow.300" />
-        
-        {/* Tekst tytułowy */}
+
         <Text fontSize="2xl" fontWeight="bold">
           Daily Quiz
         </Text>
-        
-        {/* Krótki opis zachęcający do wzięcia udziału */}
+
         <Text fontSize="md" color="gray.100">
           Test your knowledge today and earn points!
         </Text>

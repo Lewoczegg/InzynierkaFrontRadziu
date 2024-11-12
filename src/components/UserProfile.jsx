@@ -10,7 +10,6 @@ const UserProfile = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Pobieranie informacji o użytkowniku
     const getUserInfo = async () => {
       try {
         const data = await fetchUserInfo();
@@ -22,7 +21,6 @@ const UserProfile = () => {
       }
     };
 
-    // Pobieranie postępu użytkownika
     const getUserProgress = async () => {
       try {
         const data = await fetchUserProgress();
@@ -57,7 +55,6 @@ const UserProfile = () => {
   return (
     <Box w="100%" p={4}>
       <HStack align="start" spacing={8} w="100%">
-        {/* Lewa strona: Dane użytkownika */}
         <Box w="30%" p={4} borderWidth="1px" borderRadius="md" bg="#1e1e1e" color="white">
           <Text fontWeight="bold" fontSize="2xl" mb={4}>
             User Information
@@ -76,7 +73,6 @@ const UserProfile = () => {
           )}
         </Box>
 
-        {/* Prawa strona: Progres użytkownika */}
         <Box w="70%" p={4} borderWidth="1px" borderRadius="md" bg="#2d2d2d" color="white">
           <Text fontWeight="bold" fontSize="2xl" mb={4}>
             User Progress

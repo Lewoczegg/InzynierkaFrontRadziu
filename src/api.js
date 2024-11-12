@@ -26,7 +26,6 @@ API.interceptors.request.use(
 );
   
 
-// Funkcja do rejestracji użytkownika
 export const registerUser = async (userData) => {
     try {
         const response = await API.post("api/auth/register", userData);
@@ -36,12 +35,10 @@ export const registerUser = async (userData) => {
     }
 };
 
-// Funkcja do logowania użytkownika
 export const loginUser = async (username, password) => {
     try {
         const response = await API.post("/api/auth/login", { username, password });
         if (response.data.token) {
-            // Zapisz token w localStorage
             localStorage.setItem("token", response.data.token);
         }
         return response.data;
@@ -50,7 +47,6 @@ export const loginUser = async (username, password) => {
     }
 };
 
-// Funkcja do wylogowania (czyści token)
 export const logoutUser = () => {
     localStorage.removeItem("token");
 };

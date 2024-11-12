@@ -20,13 +20,12 @@ const Output = ({ editorRef, language, taskId }) => {
         }
         try {
             setIsLoading(true);
-            const { result } = await executeCode(language, sourceCode, taskId); // Przekazywanie dynamicznego `taskId`
+            const { result } = await executeCode(language, sourceCode, taskId);
 
             if (result.success) {
                 setIsError(false);
                 const outputLines = result.output.trim().split('\n');
 
-                // Usuwamy ostatnią linię jeśli jest podsumowaniem
                 if (outputLines[outputLines.length - 1].includes('All tests') || outputLines[outputLines.length - 1].includes('Some tests failed')) {
                     outputLines.pop();
                 }
@@ -34,7 +33,6 @@ const Output = ({ editorRef, language, taskId }) => {
                 const userOutputLines = result.userOutput ? result.userOutput.trim().split('\n') : [];
 
                 const tests = outputLines.map((line) => {
-                    // Sprawdzamy, czy test przeszedł czy nie
                     const regexPassed = /Test passed for input: (.+)\. Result: (.+)/;
                     const regexFailed = /Test failed for input: (.+)\. Expected: (.+), but got: (.+)/;
                     const matchPassed = line.match(regexPassed);

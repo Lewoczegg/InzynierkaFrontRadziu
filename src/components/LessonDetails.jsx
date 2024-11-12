@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, SimpleGrid, Spinner, Center, Link } from '@chakra-ui/react';
-import { fetchVisibleAssignments } from '../api'; // Import nowej funkcji API
+import { fetchVisibleAssignments } from '../api';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 
 function LessonDetails() {
-  const { lessonId } = useParams(); // Pobieranie id lekcji z URL
+  const { lessonId } = useParams();
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -12,8 +12,7 @@ function LessonDetails() {
   useEffect(() => {
     const getAssignments = async () => {
       try {
-        const data = await fetchVisibleAssignments(); // Użycie nowego endpointu do pobierania widocznych zadań
-        // Filtrowanie zadań dla wybranej lekcji
+        const data = await fetchVisibleAssignments();
         const filteredAssignments = data.filter((assignment) => assignment.lesson.lessonId === parseInt(lessonId));
         setAssignments(filteredAssignments);
       } catch (err) {
@@ -54,8 +53,8 @@ function LessonDetails() {
           {assignments.map((assignment) => (
             <Box
               key={assignment.assignmentId}
-              as={assignment.available ? RouterLink : "div"} // Jeśli zadanie jest dostępne, jest klikalne, inaczej nie
-              to={assignment.available ? `/assignments/${assignment.assignmentId}` : undefined} // Przekierowanie tylko jeśli zadanie jest dostępne
+              as={assignment.available ? RouterLink : "div"}
+              to={assignment.available ? `/assignments/${assignment.assignmentId}` : undefined}
               p={4}
               bg={assignment.available ? "gray.600" : "gray.700"}
               borderRadius="md"

@@ -6,7 +6,6 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    // Sprawdź, czy token jest w localStorage i ustaw stan zalogowania
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
   }, []);

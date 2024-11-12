@@ -10,8 +10,8 @@ import LessonDetails from './components/LessonDetails';
 import AssignmentEditor from './components/AssignmentEditor';
 import AuthPage from './components/AuthPage';
 import DailyQuiz from './components/DailyQuiz';
-import DailyQuizTile from './components/DailyQuizTile'; // Import kafelka DailyQuiz
-import DailyTaskTile from './components/DailyTaskTile'; // Import kafelka DailyTask
+import DailyQuizTile from './components/DailyQuizTile';
+import DailyTaskTile from './components/DailyTaskTile';
 
 function App() {
   return (
@@ -28,15 +28,12 @@ function App() {
         <Routes>
           <Route path="/" element={
             <Box>
-              <Text fontSize="3xl" color="white" mb={4} mt ={2}>Welcome to Code-Series!</Text>
+              <Text fontSize="3xl" color="white" mb={4} mt={2}>Welcome to Code-Series!</Text>
               <Text fontSize="md" color="gray.400" mb={6}>
                 Explore our courses, lessons, assignments, daily quiz, and daily task.
               </Text>
-              {/* Kontener Flex do wyświetlenia kafelków Daily Quiz i Daily Task obok siebie */}
               <Flex justifyContent="left" gap={6} wrap={{ base: 'wrap', md: 'nowrap' }}>
-                {/* Kafelek Daily Quiz */}
                 <DailyQuizTile />
-                {/* Kafelek Daily Task */}
                 <DailyTaskTile />
               </Flex>
             </Box>

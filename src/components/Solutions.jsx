@@ -14,8 +14,7 @@ const Solutions = ({ assignmentId }) => {
         setLoading(true);
         const solutionsData = await fetchSolutionsByAssignmentId(assignmentId);
         setSolutions(solutionsData);
-        
-        // Ustawienie pierwszego dostępnego języka jako domyślnego, jeśli rozwiązania są dostępne
+
         if (solutionsData.length > 0) {
           setSelectedLanguage(solutionsData[0].language);
         }
@@ -47,7 +46,6 @@ const Solutions = ({ assignmentId }) => {
     );
   }
 
-  // Filtrujemy rozwiązania na podstawie wybranego języka
   const selectedSolution = solutions.find(
     (solution) => solution.language.toLowerCase() === selectedLanguage?.toLowerCase()
   );
@@ -58,7 +56,6 @@ const Solutions = ({ assignmentId }) => {
         Solutions
       </Text>
 
-      {/* Zakładki do wyboru języka */}
       <Flex mb={4} flexWrap="wrap">
         {solutions.map((solution) => (
           <Button
@@ -74,18 +71,12 @@ const Solutions = ({ assignmentId }) => {
         ))}
       </Flex>
 
-      {/* Wyświetlenie kodu rozwiązania */}
       {selectedSolution ? (
         <VStack align="start" spacing={4} w="100%">
           <Box w="100%" p={4} bg="#2d2d2d" borderRadius="md" overflow="auto">
             <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", color: "#c3c3c3" }}>
               {selectedSolution.content}
             </pre>
-          </Box>
-          <Box w="100%">
-            <Text fontWeight="bold">Complexity Analysis:</Text>
-            <Text>- Time complexity: O(n²).</Text>
-            <Text>- Space complexity: O(1).</Text>
           </Box>
         </VStack>
       ) : (

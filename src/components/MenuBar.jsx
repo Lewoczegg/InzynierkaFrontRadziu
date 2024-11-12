@@ -1,7 +1,7 @@
 import { Flex, Box, Button, HStack, useToast } from "@chakra-ui/react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import React from "react";
-import { useAuth } from "../context/AuthContext"; // Import useAuth
+import { useAuth } from "../context/AuthContext";
 
 function MenuBar() {
   const location = useLocation();
@@ -74,7 +74,6 @@ function MenuBar() {
             Assignments
           </Button>
         </Link>
-        {/* Przyciski widoczne tylko dla zalogowanych użytkowników */}
         {isLoggedIn && (
           <Link to="/user-profile">
             <Button

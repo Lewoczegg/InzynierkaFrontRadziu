@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, SimpleGrid, Spinner, Center } from '@chakra-ui/react';
-import { fetchVisibleLessons } from '../api'; // Import nowej funkcji API
+import { fetchVisibleLessons } from '../api';
 import { Link as RouterLink } from 'react-router-dom';
 
 function Lessons() {
@@ -56,8 +56,8 @@ function Lessons() {
             cursor={lesson.available ? "pointer" : "not-allowed"}
             _hover={lesson.available ? { bg: "gray.500", transform: "scale(1.05)" } : {}}
             transition="transform 0.2s ease-in-out"
-            as={lesson.available ? RouterLink : "div"} // Tylko dostępne lekcje są klikalne
-            to={lesson.available ? `/lessons/${lesson.lessonId}` : undefined} // Przekierowanie tylko jeśli lekcja jest dostępna
+            as={lesson.available ? RouterLink : "div"}
+            to={lesson.available ? `/lessons/${lesson.lessonId}` : undefined}
           >
             <Text fontSize="xl" mb={2}>
               {lesson.title}

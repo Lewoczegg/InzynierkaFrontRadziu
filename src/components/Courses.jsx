@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, SimpleGrid, Spinner, Center } from '@chakra-ui/react';
-import { fetchVisibleCourses } from '../api'; // Import nowej funkcji API
+import { fetchVisibleCourses } from '../api';
 import { Link as RouterLink } from 'react-router-dom';
 
 function Courses() {
@@ -11,7 +11,7 @@ function Courses() {
   useEffect(() => {
     const getCourses = async () => {
       try {
-        const data = await fetchVisibleCourses(); // Użycie nowego endpointu do pobrania kursów
+        const data = await fetchVisibleCourses();
         setCourses(data);
       } catch (err) {
         setError('Failed to fetch courses. Please try again later.');

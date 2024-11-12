@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, VStack, Spinner, Center, RadioGroup, Radio, Button, Stack } from '@chakra-ui/react';
-import { fetchDailyQuiz, submitQuizResult } from '../api'; // Importujemy funkcję API do pobierania quizu i wysyłania wyników
+import { fetchDailyQuiz, submitQuizResult } from '../api';
 import { useToast } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 
@@ -20,12 +20,11 @@ function DailyQuiz() {
         setLoading(true);
         const data = await fetchDailyQuiz();
 
-        // Sprawdzamy, czy odpowiedź zawiera komunikat "done", który informuje, że quiz został już zrobiony
         if (data.message && data.message === "done") {
           setAlreadyDone(true);
         } else {
           setQuiz(data);
-          setStartTime(new Date().toISOString()); // Zapisujemy czas wejścia na stronę quizu
+          setStartTime(new Date().toISOString());
         }
       } catch (err) {
         setError('Failed to fetch the daily quiz. Please try again later.');
@@ -56,7 +55,7 @@ function DailyQuiz() {
     };
 
     try {
-      const result = await submitQuizResult(requestBody); // Otrzymujemy wynik, który zawiera liczbę punktów
+      const result = await submitQuizResult(requestBody);
       toast({
         title: "Quiz Submitted",
         description: `Your answers have been submitted successfully! You scored ${result.points} points.`,

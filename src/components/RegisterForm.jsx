@@ -15,11 +15,9 @@ const RegisterForm = ({ switchToLogin }) => {
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
 
-  // Funkcja do obsługi rejestracji
   const handleRegister = async (e) => {
-    e.preventDefault(); // Zapobiega domyślnemu przeładowaniu strony
+    e.preventDefault();
 
-    // Walidacja pól formularza
     const errors = {};
     if (!username) errors.username = "Username is required";
     if (!password) errors.password = "Password is required";
@@ -29,13 +27,11 @@ const RegisterForm = ({ switchToLogin }) => {
     if (!phoneNumber) errors.phoneNumber = "Phone number is required";
     if (!age) errors.age = "Age is required";
 
-    // Ustaw błędy walidacji, jeśli istnieją
     if (Object.keys(errors).length > 0) {
       setValidationErrors(errors);
       return;
     }
 
-    // Jeśli nie ma błędów, kontynuuj rejestrację
     const requestData = {
       username,
       password,
@@ -43,17 +39,15 @@ const RegisterForm = ({ switchToLogin }) => {
       firstName,
       surname,
       phoneNumber,
-      age: parseInt(age, 10), // Konwersja wieku do liczby
+      age: parseInt(age, 10),
     };
 
     try {
       setError(null);
       setValidationErrors({});
-      
-      // Czekaj na odpowiedź z serwera
+
       await registerUser(requestData);
-      
-      // Wyświetl toast
+
       toast({
         title: "Registration",
         description: "Registration successful! You can now log in.",
@@ -62,7 +56,6 @@ const RegisterForm = ({ switchToLogin }) => {
         isClosable: true,
       });
 
-      // Przełącz na formularz logowania po udanej rejestracji
       switchToLogin();
     } catch (error) {
       setError(error.message);
@@ -73,7 +66,6 @@ const RegisterForm = ({ switchToLogin }) => {
     <Box w="100%">
       <form onSubmit={handleRegister}>
         <VStack spacing={4}>
-          {/* Pola formularza z walidacją */}
           <FormControl id="username" isInvalid={validationErrors.username}>
             <FormLabel>Username</FormLabel>
             <Input
