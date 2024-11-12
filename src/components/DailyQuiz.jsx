@@ -102,7 +102,7 @@ function DailyQuiz() {
   }
 
   return (
-    <Box p={4} bg="gray.800" borderRadius="md" color="white">
+    <Box p={4} bg="gray.800" mt={5} borderRadius="md" color="white">
       <Text fontSize="2xl" mb={4} fontWeight="bold">
         {quiz.title}
       </Text>

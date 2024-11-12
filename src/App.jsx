@@ -9,6 +9,7 @@ import CourseDetails from './components/CourseDetails';
 import LessonDetails from './components/LessonDetails';
 import AssignmentEditor from './components/AssignmentEditor';
 import AuthPage from './components/AuthPage';
+import UserProfile from './components/UserProfile';
 import DailyQuiz from './components/DailyQuiz';
 import DailyQuizTile from './components/DailyQuizTile';
 import DailyTaskTile from './components/DailyTaskTile';
@@ -45,6 +46,7 @@ function App() {
           <Route path="/lessons/:lessonId" element={<LessonDetails />} />
           <Route path="/assignments/:assignmentId" element={<AssignmentEditor />} />
           <Route path="/auth" element={<AuthPage />} />
+          <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/daily-quiz" element={<DailyQuiz />} />
           <Route path="/daily-task" element={<div>Daily Task Page (to be implemented)</div>} />
         </Routes>
