@@ -13,10 +13,13 @@ import UserProfile from './components/UserProfile';
 import DailyQuiz from './components/DailyQuiz';
 import DailyQuizTile from './components/DailyQuizTile';
 import DailyTaskTile from './components/DailyTaskTile';
+import DailyTaskEditor from './components/DailyTaskEditor';
+import DailyTask from './components/DailyTask';
+import Ranking from './components/Ranking';
 
 function App() {
   return (
-    <Box
+    <Box  
       minH="100vh"
       bg="#0f0a19"
       color="gray.500"
@@ -48,7 +51,9 @@ function App() {
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/user-profile" element={<UserProfile />} />
           <Route path="/daily-quiz" element={<DailyQuiz />} />
-          <Route path="/daily-task" element={<div>Daily Task Page (to be implemented)</div>} />
+          <Route path="/daily-task" element={<DailyTaskEditor />} />
+          <Route path="/daily-task" element={<DailyTask />} />
+          <Route path="/ranking" element={<Ranking />} />
         </Routes>
       </Box>
     </Box>

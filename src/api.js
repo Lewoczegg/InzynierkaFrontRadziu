@@ -1,13 +1,13 @@
 import axios from "axios";
-const API = axios.create({ 
+const API = axios.create({
     baseURL: "http://localhost:8080",
 });
 
 export const executeCode = async (language, sourceCode, taskId) => {
-    const response = await API.post("/Assignment/run", { 
-        code: sourceCode, 
-        taskId: taskId, 
-        language: language, 
+    const response = await API.post("/Assignment/run", {
+        code: sourceCode,
+        taskId: taskId,
+        language: language,
     });
     return response.data;
 };
@@ -24,7 +24,7 @@ API.interceptors.request.use(
         return Promise.reject(error);
     }
 );
-  
+
 
 export const registerUser = async (userData) => {
     try {
@@ -87,53 +87,53 @@ export const submitAssignment = async (taskId, language, sourceCode) => {
             language: language,
             code: sourceCode,
         });
-        return response.data; 
+        return response.data;
     } catch (error) {
         console.error("Failed to submit assignment:", error);
-        throw error; 
+        throw error;
     }
 };
 
 export const fetchLatestSubmission = async (taskId) => {
     try {
-      const response = await API.post("/Submission/latest-submission", {
-        taskId: taskId,
-      });
-      return response.data;
+        const response = await API.post("/Submission/latest-submission", {
+            taskId: taskId,
+        });
+        return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Failed to fetch the latest submission.");
+        throw new Error(error.response?.data?.message || "Failed to fetch the latest submission.");
     }
-  };
+};
 
-  export const fetchUserInfo = async () => {
+export const fetchUserInfo = async () => {
     try {
-      const response = await API.get("/api/auth/user-info");
-      return response.data;
+        const response = await API.get("/api/auth/user-info");
+        return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Failed to fetch user info.");
+        throw new Error(error.response?.data?.message || "Failed to fetch user info.");
     }
-  };
-  
+};
 
-  export const fetchUserProgress = async () => {
+
+export const fetchUserProgress = async () => {
     try {
-      const response = await API.get("/Assignment/all-submissions");
-      return response.data;
+        const response = await API.get("/Assignment/all-submissions");
+        return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Failed to fetch user progress.");
+        throw new Error(error.response?.data?.message || "Failed to fetch user progress.");
     }
-  };
+};
 
-  export const fetchVisibleCourses = async () => {
+export const fetchVisibleCourses = async () => {
     try {
-      const response = await API.get("/Courses/visible-courses");
-      return response.data;
+        const response = await API.get("/Courses/visible-courses");
+        return response.data;
     } catch (error) {
-      throw new Error(error.response?.data?.message || "Failed to fetch courses.");
+        throw new Error(error.response?.data?.message || "Failed to fetch courses.");
     }
-  };
+};
 
-  export const fetchVisibleLessons = async () => {
+export const fetchVisibleLessons = async () => {
     const response = await API.get("/Lessons/visible-lessons");
     return response.data;
 };
@@ -159,3 +159,29 @@ export const submitQuizResult = async (quizResult) => {
     const response = await API.post("/QuizResult/submit", quizResult);
     return response.data;
 };
+
+export const fetchUserRanking = async () => {
+    const response = await API.get("/QuizResult/total-points");
+    return response.data;
+};
+
+export const fetchDailyTask = async () => {
+    const response = await API.get("/DailyTask/daily");
+    return response.data;
+  };
+
+export const submitDailyTask = async (taskId, sourceCode, language, startTime) => {
+    const response = await API.post("/DailyTaskResult/complete", {
+        userCode: sourceCode,
+        taskId: taskId,
+        language: language,
+        startTime: startTime,
+    });
+    return response.data;
+};
+
+export const fetchDailyTaskById = async (taskId) => {
+        const response = await API.get(`/DailyTask/${taskId}`);
+        return response.data;
+
+}

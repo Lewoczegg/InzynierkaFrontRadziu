@@ -85,6 +85,15 @@ function MenuBar() {
             </Button>
           </Link>
         )}
+        <Link to="/ranking">
+          <Button
+            variant="ghost"
+            color={location.pathname === "/ranking" ? "white" : "whiteAlpha.700"}
+            fontSize="sm"
+          >
+            Ranking
+          </Button>
+        </Link>
       </Flex>
       <HStack ml="auto" spacing={4}>
         {isLoggedIn ? (

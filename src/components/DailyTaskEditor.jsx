@@ -1,28 +1,78 @@
 import React, { useEffect, useState } from 'react';
 import SplitPane from 'react-split-pane';
 import styled from 'styled-components';
-import { Box } from '@chakra-ui/react';
+import { Box, Spinner, Center, Text } from '@chakra-ui/react';
 import CodeEditor from './CodeEditor';
 import MenuBar from './MenuBar';
-import Assignment from './Assignment';
-import { useParams } from 'react-router-dom';
+import DailyTask from './DailyTask';
+import { fetchDailyTask } from '../api';
 
-function AssignmentEditor() {
-  const { assignmentId } = useParams(); // Pobieranie id assignment z URL
-  const [taskId, setTaskId] = useState(null);
+function DailyTaskEditor() {
+  const [task, setTask] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [startTime, setStartTime] = useState("");
+  const [alreadyDone, setAlreadyDone] = useState(false);
 
   useEffect(() => {
-    setTaskId(parseInt(assignmentId));
-  }, [assignmentId]);
+    const getDailyTask = async () => {
+      try {
+        setLoading(true);
+        const taskData = await fetchDailyTask();
+
+        if (taskData.message && taskData.message === "done") {
+          setAlreadyDone(true);
+        } else {
+          setStartTime(new Date().toISOString());
+          setTask(taskData);
+        }
+        
+        
+      } catch (err) {
+        setError('Failed to fetch the daily task. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    getDailyTask();
+  }, []);
+
+  if (loading) {
+    return (
+      <Center height="100%">
+        <Spinner size="xl" color="white" />
+      </Center>
+    );
+  }
+
+  if (alreadyDone) {
+    return (
+      <Center height="100%">
+        <Text fontSize="xl" color="yellow.400">
+          Dzisiaj task został zrobiony. Spróbuj ponownie jutro!
+        </Text>
+      </Center>
+    );
+  }
+
+  if (error) {
+    return (
+      <Center height="100%">
+        <Text color="red.500">{error}</Text>
+      </Center>
+    );
+  }
+
+
+
 
   return (
     <Box
-    //   minH="100vh"
       bg="#0f0a19"
       color="gray.500"
       display="flex"
       flexDirection="column"
-    //   pt="50px"
     >
       <MenuBar />
       <Box flex="1" display="flex">
@@ -46,7 +96,7 @@ function AssignmentEditor() {
             minWidth="0"
             height="100%"
           >
-            <Assignment assignmentId={assignmentId} />
+            <DailyTask taskId={task.taskId}/>
           </Box>
 
           {/* Prawa kolumna: CodeEditor */}
@@ -61,7 +111,7 @@ function AssignmentEditor() {
             minWidth="0"
             height="100%"
           >
-            <CodeEditor taskId={taskId} isDailyTask={false} startTime={""}/>
+            <CodeEditor taskId={`Daily${task.taskId}`} isDailyTask={true} startTime={startTime}/>
           </Box>
         </StyledSplitPane>
       </Box>
@@ -69,7 +119,7 @@ function AssignmentEditor() {
   );
 }
 
-export default AssignmentEditor;
+export default DailyTaskEditor;
 
 const StyledSplitPane = styled(SplitPane)`
   height: 100%;

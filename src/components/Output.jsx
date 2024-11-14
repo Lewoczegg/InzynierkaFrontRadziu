@@ -1,9 +1,9 @@
 import { Box, Button, Text, useToast, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { executeCode, submitAssignment } from "../api";
+import { executeCode, submitAssignment, submitDailyTask } from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Output = ({ editorRef, language, taskId }) => {
+const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
     const toast = useToast();
     const [tests, setTests] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -125,7 +125,14 @@ const Output = ({ editorRef, language, taskId }) => {
         }
         try {
             setIsLoading(true);
-            const { result } = await submitAssignment(taskId, language, sourceCode);
+            let response;
+            if (isDailyTask) {
+                response  = await submitDailyTask(taskId, sourceCode, language, startTime);
+              } else {
+                response  = await submitAssignment(taskId, language, sourceCode);
+              }
+
+            const { result } = response;
 
             if (result.success) {
                 toast({
@@ -135,7 +142,12 @@ const Output = ({ editorRef, language, taskId }) => {
                     duration: 6000,
                     isClosable: true,
                 });
-                navigate("/assignments");
+                if (isDailyTask) {
+                    navigate("/");
+                  } else {
+                    navigate("/assignments");
+                  }
+                
             } else {
                 toast({
                     title: "Error",
