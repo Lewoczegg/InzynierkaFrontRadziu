@@ -17,54 +17,51 @@ function AssignmentEditor() {
 
   return (
     <Box
-    //   minH="100vh"
-      bg="#0f0a19"
-      color="gray.500"
-      display="flex"
-      flexDirection="column"
-    //   pt="50px"
+    bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+    color="gray.300"
+    display="flex"
+    flexDirection="column"
+    overflow="hidden"
+    mt={3}
     >
-      <MenuBar />
-      <Box flex="1" display="flex">
         <StyledSplitPane
           split="vertical"
           defaultSize="50%"
-          minSize={440}
-          maxSize={-440}
+          minSize={530}
+          maxSize={-530}
           primary="second"
-          style={{ height: '93.5%' }}
+          style={{ flex: 1, position: "relative" }}
         >
           {/* Lewa kolumna: Assignment */}
           <Box
-            p={4}
-            bg="#333"
-            borderRadius="md"
-            boxShadow="md"
-            overflow="auto"
-            display="flex"
+            p={6}
+            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+            borderRadius="lg"
+            boxShadow="lg"
             flex="1"
+            display="flex"
             minWidth="0"
-            height="100%"
+            height="100%" 
+            overflow="auto"
           >
             <Assignment assignmentId={assignmentId} />
           </Box>
 
           {/* Prawa kolumna: CodeEditor */}
           <Box
-            p={4}
-            bg="#2d2d2d"
-            borderRadius="md"
-            boxShadow="md"
-            overflow="auto"
+            p={6}
+            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+            borderRadius="lg"
+            boxShadow="lg"
             display="flex"
-            flex="1"
             minWidth="0"
-            height="100%"
+            height="100%" 
+            overflow="auto"
+            
           >
-            <CodeEditor taskId={taskId} isDailyTask={false} startTime={""}/>
+            <CodeEditor taskId={taskId} isDailyTask={false} startTime={""} />
           </Box>
         </StyledSplitPane>
-      </Box>
     </Box>
   );
 }
@@ -74,19 +71,20 @@ export default AssignmentEditor;
 const StyledSplitPane = styled(SplitPane)`
   height: 100%;
   box-sizing: border-box;
-
+  
   .Resizer {
-    background: #ccc;
+    background: #5a67d8; // Stylizacja separatora na kolor pasujący do aplikacji
     z-index: 10;
     box-sizing: inherit;
     background-clip: padding-box;
     width: 10px;
     cursor: col-resize;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, width 0.2s ease;
   }
 
   .Resizer:hover {
-    background: #888;
+    background: #4c51bf;
+    width: 12px; // Subtelny efekt powiększenia podczas najechania myszką
   }
 
   .Resizer.vertical {

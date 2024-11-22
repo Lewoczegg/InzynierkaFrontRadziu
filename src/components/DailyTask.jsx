@@ -50,10 +50,17 @@ const DailyTask = ({ taskId }) => {
         <TabPanels>
           <TabPanel>
             {/* Box, który zawiera tytuł i opis zadania */}
-            <Box p={6} borderWidth="1px" borderRadius="md" bg="#1e1e1e" color="#f5f5f5" boxShadow="lg">
+            <Box
+              bg="#1b1133"
+              p={6}
+              borderRadius="lg"
+              boxShadow="md"
+              color="gray.100"
+              mb={6}
+            >
               {task ? (
                 <>
-                  <Text fontSize="2xl" mb={4} fontWeight="bold" color="#ffffff">
+                  <Text fontSize="2xl" mb={4} fontWeight="bold" color="white">
                     {task.title}
                   </Text>
                   {/* Formatowanie opisu z podziałem na linie */}

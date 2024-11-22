@@ -172,7 +172,7 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
     };
 
     return (
-        <Box w={'100%'}>
+        <Box w={'100%'} >
             <Button variant='outline' colorScheme='blue' mb={4} isLoading={isLoading} onClick={runCode}>
                 Run code
             </Button>
@@ -197,23 +197,26 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                         <TabPanels>
                             {tests.map((test, index) => (
                                 <TabPanel key={index}>
-                                    <Box p={4} borderWidth="1px" borderRadius="md">
-                                        <Text fontWeight="bold">
-                                            Status: <Text as="span" color={test.status === 'failed' ? 'red.500' : 'green.500'}>
-                                                {test.status === 'failed' ? 'Failed' : 'Passed'}
-                                            </Text>
-                                        </Text>
-                                        <Text fontWeight="bold">Input:</Text>
-                                        <Text mb={2}>{test.input}</Text>
+                                    <Box p={6} bg="#2c1e4b" borderRadius="lg" boxShadow="md">
+                                        <Box mb={4} p={4} bg="#1b1133" borderRadius="md">
+                                            <Text fontWeight="bold" mb={2}>Input:</Text>
+                                            <Text>{test.input}</Text>
+                                        </Box>
 
-                                        <Text fontWeight="bold">Expected Result:</Text>
-                                        <Text mb={2}>{test.expected}</Text>
+                                        <Box mb={4} p={4} bg="#1b1133" borderRadius="md">
+                                            <Text fontWeight="bold" mb={2}>Expected Result:</Text>
+                                            <Text>{test.expected}</Text>
+                                        </Box>
 
-                                        <Text fontWeight="bold">Actual Result:</Text>
-                                        <Text mb={2}>{test.actual}</Text>
+                                        <Box mb={4} p={4} bg="#1b1133" borderRadius="md">
+                                            <Text fontWeight="bold" mb={2}>Actual Result:</Text>
+                                            <Text>{test.actual}</Text>
+                                        </Box>
 
-                                        <Text fontWeight="bold">User Output:</Text>
-                                        <Text mb={2}>{test.userOutput}</Text>
+                                        <Box p={4} bg="#1b1133" borderRadius="md">
+                                            <Text fontWeight="bold" mb={2}>User Output:</Text>
+                                            <Text>{test.userOutput}</Text>
+                                        </Box>
                                     </Box>
                                 </TabPanel>
                             ))}
@@ -221,7 +224,7 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                     </Tabs>
                 </>
             ) : (
-                <Text mt={4}>Tutaj pojawi się wynik po uruchomieniu kodu.</Text>
+                <Text mt={4}>The result will appear here after running the code.</Text>
             )}
         </Box>
     );

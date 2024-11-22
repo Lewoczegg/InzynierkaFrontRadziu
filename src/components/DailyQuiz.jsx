@@ -13,7 +13,12 @@ function DailyQuiz() {
   const [startTime, setStartTime] = useState(null);
   const toast = useToast();
   const navigate = useNavigate();
-
+  const getLocalISOString = () => {
+    const now = new Date();
+    const offsetMs = now.getTimezoneOffset() * 60 * 1000;
+    const localTime = new Date(now.getTime() - offsetMs);
+    return localTime.toISOString().slice(0, -1);
+  };
   useEffect(() => {
     const getQuiz = async () => {
       try {
@@ -24,7 +29,7 @@ function DailyQuiz() {
           setAlreadyDone(true);
         } else {
           setQuiz(data);
-          setStartTime(new Date().toISOString());
+          setStartTime(getLocalISOString());
         }
       } catch (err) {
         setError('Failed to fetch the daily quiz. Please try again later.');
@@ -85,11 +90,31 @@ function DailyQuiz() {
 
   if (alreadyDone) {
     return (
-      <Center height="100%">
-        <Text fontSize="xl" color="yellow.400">
-          Dzisiaj quiz został zrobiony. Spróbuj ponownie jutro!
-        </Text>
-      </Center>
+      <Box
+        height="100vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+        color="gray.300"
+      >
+        <Box
+          p={6}
+          bg="#1b1133"
+          borderRadius="lg"
+          boxShadow="xl"
+          width={{ base: "90%", md: "70%", lg: "50%" }}
+          maxWidth="600px"
+          textAlign="center"
+        >
+          <Text fontSize="2xl" fontWeight="bold" color="yellow.400">
+            Dzisiaj quiz został zrobiony.
+          </Text>
+          <Text fontSize="lg" mt={4} color="gray.200">
+            Spróbuj ponownie jutro, aby rozwiązać kolejny quiz i zdobyć więcej punktów!
+          </Text>
+        </Box>
+      </Box>
     );
   }
 
@@ -102,13 +127,13 @@ function DailyQuiz() {
   }
 
   return (
-    <Box p={4} bg="gray.800" mt={5} borderRadius="md" color="white">
+    <Box p={4} bgGradient="linear(to-b, #0f0a19, #1a1a40)" mt={5} borderRadius="md" color="white">
       <Text fontSize="2xl" mb={4} fontWeight="bold">
         {quiz.title}
       </Text>
       <VStack align="start" spacing={6}>
         {quiz.questions.map((question) => (
-          <Box key={question.questionId} w="100%" p={4} bg="gray.700" borderRadius="md">
+          <Box key={question.questionId} w="100%" p={4} bg="#1b1133" borderRadius="md">
             <Text mb={2} fontWeight="bold">
               {question.content}
             </Text>

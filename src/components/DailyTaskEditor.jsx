@@ -11,9 +11,14 @@ function DailyTaskEditor() {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [startTime, setStartTime] = useState("");
+  const [startTime, setStartTime] = useState(null);
   const [alreadyDone, setAlreadyDone] = useState(false);
-
+  const getLocalISOString = () => {
+    const now = new Date();
+    const offsetMs = now.getTimezoneOffset() * 60 * 1000;
+    const localTime = new Date(now.getTime() - offsetMs);
+    return localTime.toISOString().slice(0, -1);
+  };
   useEffect(() => {
     const getDailyTask = async () => {
       try {
@@ -23,7 +28,7 @@ function DailyTaskEditor() {
         if (taskData.message && taskData.message === "done") {
           setAlreadyDone(true);
         } else {
-          setStartTime(new Date().toISOString());
+          setStartTime(getLocalISOString());
           setTask(taskData);
         }
         
@@ -48,11 +53,31 @@ function DailyTaskEditor() {
 
   if (alreadyDone) {
     return (
-      <Center height="100%">
-        <Text fontSize="xl" color="yellow.400">
-          Dzisiaj task został zrobiony. Spróbuj ponownie jutro!
-        </Text>
-      </Center>
+      <Box
+        height="100vh"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+        bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+        color="gray.300"
+      >
+        <Box
+          p={6}
+          bg="#1b1133"
+          borderRadius="lg"
+          boxShadow="xl"
+          width={{ base: "90%", md: "70%", lg: "50%" }}
+          maxWidth="600px"
+          textAlign="center"
+        >
+          <Text fontSize="2xl" fontWeight="bold" color="yellow.400">
+            Dzisiaj task został zrobiony.
+          </Text>
+          <Text fontSize="lg" mt={4} color="gray.200">
+            Spróbuj ponownie jutro, aby rozwiązać kolejny task i zdobyć więcej punktów!
+          </Text>
+        </Box>
+      </Box>
     );
   }
 
@@ -69,52 +94,50 @@ function DailyTaskEditor() {
 
   return (
     <Box
-      bg="#0f0a19"
-      color="gray.500"
-      display="flex"
-      flexDirection="column"
+    bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+    color="gray.300"
+    display="flex"
+    flexDirection="column"
+    overflow="hidden"
+    mt={3}
     >
-      <MenuBar />
-      <Box flex="1" display="flex">
         <StyledSplitPane
           split="vertical"
           defaultSize="50%"
-          minSize={440}
-          maxSize={-440}
+          minSize={460}
+          maxSize={-460}
           primary="second"
-          style={{ height: '93.5%' }}
+          style={{ flex: 1, position: "relative" }}
         >
           {/* Lewa kolumna: Assignment */}
           <Box
-            p={4}
-            bg="#333"
-            borderRadius="md"
-            boxShadow="md"
-            overflow="auto"
+            p={6}
+            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+            borderRadius="lg"
+            boxShadow="lg"
             display="flex"
-            flex="1"
             minWidth="0"
-            height="100%"
+            height="100%" 
+            overflow="auto"
           >
             <DailyTask taskId={task.taskId}/>
           </Box>
 
           {/* Prawa kolumna: CodeEditor */}
           <Box
-            p={4}
-            bg="#2d2d2d"
-            borderRadius="md"
-            boxShadow="md"
-            overflow="auto"
+            p={6}
+            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
+            borderRadius="lg"
+            boxShadow="lg"
             display="flex"
-            flex="1"
             minWidth="0"
-            height="100%"
+            height="100%" 
+            overflow="auto"
+            
           >
             <CodeEditor taskId={`Daily${task.taskId}`} isDailyTask={true} startTime={startTime}/>
           </Box>
         </StyledSplitPane>
-      </Box>
     </Box>
   );
 }
@@ -124,19 +147,20 @@ export default DailyTaskEditor;
 const StyledSplitPane = styled(SplitPane)`
   height: 100%;
   box-sizing: border-box;
-
+  
   .Resizer {
-    background: #ccc;
+    background: #5a67d8; // Stylizacja separatora na kolor pasujący do aplikacji
     z-index: 10;
     box-sizing: inherit;
     background-clip: padding-box;
     width: 10px;
     cursor: col-resize;
-    transition: background 0.2s ease;
+    transition: background 0.2s ease, width 0.2s ease;
   }
 
   .Resizer:hover {
-    background: #888;
+    background: #4c51bf;
+    width: 12px; // Subtelny efekt powiększenia podczas najechania myszką
   }
 
   .Resizer.vertical {

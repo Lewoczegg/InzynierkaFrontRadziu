@@ -1,9 +1,8 @@
-import { Flex, Box, Button, Text, Textarea, Tab, TabList, TabPanel, TabPanels, Tabs, HStack } from "@chakra-ui/react";
+import { Box, HStack } from "@chakra-ui/react";
 import { Editor } from "@monaco-editor/react";
-import { useRef } from "react";
-import { useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import LanguageSelector from "./LanguageSelector";
-import { CODE_SNIPPETS } from "../constants";
+import { CODE_SNIPPETS, TASK_SNIPPETS } from "../constants";
 import Output from "./Output";
 
 const CodeEditor = ({ taskId, isDailyTask, startTime }) => {
@@ -11,39 +10,52 @@ const CodeEditor = ({ taskId, isDailyTask, startTime }) => {
   const [value, setValue] = useState("");
   const [language, setLanguage] = useState("java");
 
+  useEffect(() => {
+    if (TASK_SNIPPETS[taskId] && TASK_SNIPPETS[taskId][language]) {
+      setValue(TASK_SNIPPETS[taskId][language]);
+    } else {
+      setValue(CODE_SNIPPETS[language]);
+    }
+  }, [taskId, language]);
+
   const onMount = (editor) => {
     editorRef.current = editor;
     editor.focus();
   };
 
-  const onSelect = (language) => {
-    setLanguage(language);
-    setValue(CODE_SNIPPETS[language]);
+  const onSelect = (selectedLanguage) => {
+    setLanguage(selectedLanguage);
   };
 
   return (
     <Box w="100%">
       <HStack spacing={4}>
-        <Box w={'100%'}>
+        <Box w={"100%"}>
           <LanguageSelector language={language} onSelect={onSelect} />
 
           <Editor
             height="67vh"
             theme="vs-dark"
             language={language}
-            defaultValue={CODE_SNIPPETS[language]}
+            defaultValue={value}
             onMount={onMount}
             value={value}
-            onChange={(value) => setValue(value)}
+            onChange={(newValue) => setValue(newValue)}
           />
 
-          <Box mt={4} mb={2} p={4} bg="#1e1e1e" borderRadius="md" boxShadow="md" minH="100px">
-            <Output editorRef={editorRef} language={language} taskId={taskId} isDailyTask={isDailyTask} startTime={startTime} />
+          <Box mt={4} mb={2} p={4} bg="#1b1133" borderRadius="lg" boxShadow="md" minH="100px">
+            <Output
+              editorRef={editorRef}
+              language={language}
+              taskId={taskId}
+              isDailyTask={isDailyTask}
+              startTime={startTime}
+            />
           </Box>
         </Box>
       </HStack>
     </Box>
   );
-}
+};
 
 export default CodeEditor;

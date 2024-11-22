@@ -3,15 +3,6 @@ const API = axios.create({
     baseURL: "http://localhost:8080",
 });
 
-export const executeCode = async (language, sourceCode, taskId) => {
-    const response = await API.post("/Assignment/run", {
-        code: sourceCode,
-        taskId: taskId,
-        language: language,
-    });
-    return response.data;
-};
-
 API.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem("token");
@@ -25,6 +16,14 @@ API.interceptors.request.use(
     }
 );
 
+export const executeCode = async (language, sourceCode, taskId) => {
+    const response = await API.post("/Assignment/run", {
+        code: sourceCode,
+        taskId: taskId,
+        language: language,
+    });
+    return response.data;
+};
 
 export const registerUser = async (userData) => {
     try {
@@ -165,6 +164,11 @@ export const fetchUserRanking = async () => {
     return response.data;
 };
 
+export const fetchTotalPoints = async () => {
+    const response = await API.get("/DailyTaskResult/total-points");
+    return response.data;
+};
+
 export const fetchDailyTask = async () => {
     const response = await API.get("/DailyTask/daily");
     return response.data;
@@ -185,3 +189,61 @@ export const fetchDailyTaskById = async (taskId) => {
         return response.data;
 
 }
+
+export const fetchAssignmentCompletionPercentage = async () => {
+    try {
+        const response = await API.get('/Progress/assignmentCompletionPercentage');
+        return response.data; // Zakładamy, że response.data zawiera obiekt {"count": 100.0}
+    } catch (error) {
+        console.error("Error in fetchAssignmentCompletionPercentage:", error.response);
+        throw new Error(error.response?.data?.message || "Failed to fetch assignment completion percentage.");
+    }
+};
+
+export const fetchCourseCompletionPercentage = async () => {
+    try {
+        const response = await API.get('/Progress/courseCompletionPercentage');
+        return response.data; // Zakładamy, że response.data zawiera obiekt {"count": 100.0}
+    } catch (error) {
+        console.error("Error in fetchCourseCompletionPercentage:", error.response);
+        throw new Error(error.response?.data?.message || "Failed to fetch course completion percentage.");
+    }
+};
+
+export const fetchLessonCompletionPercentage = async () => {
+    try {
+        const response = await API.get('/Progress/lessonCompletionPercentage');
+        return response.data; // Zakładamy, że response.data zawiera obiekt {"count": 100.0}
+    } catch (error) {
+        console.error("Error in fetchLessonCompletionPercentage:", error.response);
+        throw new Error(error.response?.data?.message || "Failed to fetch lesson completion percentage.");
+    }
+};
+
+export const uploadVideo = async (file) => {
+    const formData = new FormData();
+    formData.append('video', file);
+    try {
+      const response = await API.post(`/VideoMetadata/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      return response.data; // Zwracamy odpowiedź z serwera
+    } catch (error) {
+      console.error('Error uploading video:', error);
+      throw error;
+    }
+  };
+
+export const fetchVideo = async (videoId) => {
+    try {
+        const response = await API.get(`/VideoMetadata/stream/${videoId}.mp4`, {
+            responseType: "blob",
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Błąd podczas pobierania wideo:", error);
+        throw error; 
+    }
+};
