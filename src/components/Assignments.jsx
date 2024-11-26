@@ -46,7 +46,6 @@ function Assignments() {
       color="gray.300"
       p={10}
     >
-      {/* Sekcja powitalna */}
       <Box
         bg="#1b1133"
         borderRadius="lg"

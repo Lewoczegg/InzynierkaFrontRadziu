@@ -13,13 +13,11 @@ function Ranking() {
     const getRanking = async () => {
       try {
         setLoading(true);
-        // Fetching user ranking
         const rankingData = await fetchUserRanking();
         const rankingArray = Object.entries(rankingData).map(([username, points]) => ({ username, points }));
         rankingArray.sort((a, b) => b.points - a.points);
         setRanking(rankingArray);
 
-        // Fetching total points from the new endpoint
         const totalPointsData = await fetchTotalPoints();
         const totalPointsArray = Object.entries(totalPointsData).map(([username, points]) => ({ username, points }));
         totalPointsArray.sort((a, b) => b.points - a.points);
@@ -53,7 +51,6 @@ function Ranking() {
   return (
     <Box p={10}>
       <SimpleGrid columns={2} spacing={10}>
-        {/* Left Table - Quiz Ranking */}
         <Box
           p={6}
           bg="#1b1133"
@@ -108,8 +105,6 @@ function Ranking() {
             </Tbody>
           </Table>
         </Box>
-
-        {/* Right Table - Total Points from DailyTaskResult */}
         <Box
           p={6}
           bg="#1b1133"

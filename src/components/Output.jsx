@@ -1,5 +1,5 @@
-import { Box, Button, Text, useToast, Tabs, TabList, TabPanels, Tab, TabPanel } from "@chakra-ui/react";
-import { executeCode, submitAssignment, submitDailyTask } from "../api";
+import { Box, Button, Text, useToast, Tabs, TabList, TabPanels, Tab, TabPanel, Modal, ModalOverlay, ModalContent, ModalHeader, ModalBody, ModalCloseButton, useDisclosure, Flex } from "@chakra-ui/react";
+import { executeCode, submitAssignment, submitDailyTask, analyzeCodeRequest } from "../api";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,6 +12,8 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
     const [passedTests, setPassedTests] = useState(0);
     const [totalTests, setTotalTests] = useState(0);
     const navigate = useNavigate();
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [analyzeResult, setAnalyzeResult] = useState(null);
 
     const runCode = async () => {
         const sourceCode = editorRef.current.getValue();
@@ -59,10 +61,10 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                     } else {
                         return {
                             status: 'unknown',
-                            input: 'Nieznane',
-                            expected: 'Nieznane',
-                            actual: 'Nieznane',
-                            userOutput: 'Nieznane'
+                            input: 'Undefined',
+                            expected: 'Undefined',
+                            actual: 'Undefined',
+                            userOutput: 'Undefined'
                         };
                     }
                 });
@@ -170,15 +172,82 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
             setIsLoading(false);
         }
     };
+    const analyzeCode = async () => {
+        const sourceCode = editorRef.current.getValue();
+        if (!sourceCode) {
+            toast({
+                title: "No Code Provided",
+                description: "Please provide code to analyze.",
+                status: "warning",
+                duration: 5000,
+                isClosable: true,
+            });
+            return;
+        }
+        try {
+            setIsLoading(true);
+            const result = await analyzeCodeRequest(sourceCode);
+            const formattedResult = formatAnalysisResult(result.message);
+    
+            setAnalyzeResult(formattedResult);
+            onOpen();
+        } catch (error) {
+            console.error(error);
+            toast({
+                title: "Error",
+                description: error.message || "An error occurred during code analysis",
+                status: "error",
+                duration: 6000,
+                isClosable: true,
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
+    
+    const formatAnalysisResult = (message) => {
+        return message
+            .split(/(?=\d+\.\s)/)
+            .filter(item => item)
+            .map(item => item.trim());
+    };
 
     return (
         <Box w={'100%'} >
-            <Button variant='outline' colorScheme='blue' mb={4} isLoading={isLoading} onClick={runCode}>
-                Run code
-            </Button>
-            <Button variant='outline' colorScheme='blue' bg="#4caf50" color="white" _hover={{ bg: "#45a049" }} mb={4} ml={2} isLoading={isLoading} onClick={submitCode}>
-                Submit
-            </Button>
+            <Flex justifyContent="space-between" alignItems="center" mb={4}>
+                <Box>
+                    <Button variant='outline' colorScheme='blue' mb={4} isLoading={isLoading} onClick={runCode}>
+                        Run code
+                    </Button>
+                    <Button variant='outline' colorScheme='blue' bg="#4caf50" color="white" _hover={{ bg: "#45a049" }} mb={4} ml={2} isLoading={isLoading} onClick={submitCode}>
+                        Submit
+                    </Button>
+                </Box>
+                <Box>
+                    <Button variant='outline' colorScheme='teal' mb={4} ml={2} isLoading={isLoading} onClick={analyzeCode}>
+                        Analyze Code
+                    </Button>
+                    <Button variant='solid' colorScheme='purple' mb={4} ml={2} onClick={onOpen}>
+                        View Analysis Result
+                    </Button>
+                </Box>
+            </Flex>
+            <Modal isOpen={isOpen} onClose={onClose} isCentered>
+                <ModalOverlay />
+                <ModalContent bgGradient="linear(150deg, #0f0a19, #1a1a40)" maxW="800px">
+                    <ModalHeader>Code Analysis Result</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <div>
+                            {analyzeResult && analyzeResult.map((item, index) => (
+                                <Text key={index} style={{ marginBottom: '10px' }}>
+                                    {item}
+                                </Text>
+                            ))}
+                        </div>
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
             {tests.length > 0 ? (
                 <>
                     <Box mt={4} mb={2} ml={1} w={'100%'}>

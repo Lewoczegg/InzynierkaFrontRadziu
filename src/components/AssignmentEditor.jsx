@@ -3,12 +3,11 @@ import SplitPane from 'react-split-pane';
 import styled from 'styled-components';
 import { Box } from '@chakra-ui/react';
 import CodeEditor from './CodeEditor';
-import MenuBar from './MenuBar';
 import Assignment from './Assignment';
 import { useParams } from 'react-router-dom';
 
 function AssignmentEditor() {
-  const { assignmentId } = useParams(); // Pobieranie id assignment z URL
+  const { assignmentId } = useParams();
   const [taskId, setTaskId] = useState(null);
 
   useEffect(() => {
@@ -32,7 +31,6 @@ function AssignmentEditor() {
           primary="second"
           style={{ flex: 1, position: "relative" }}
         >
-          {/* Lewa kolumna: Assignment */}
           <Box
             p={6}
             bgGradient="linear(to-b, #0f0a19, #1a1a40)"
@@ -47,7 +45,6 @@ function AssignmentEditor() {
             <Assignment assignmentId={assignmentId} />
           </Box>
 
-          {/* Prawa kolumna: CodeEditor */}
           <Box
             p={6}
             bgGradient="linear(to-b, #0f0a19, #1a1a40)"
@@ -73,7 +70,7 @@ const StyledSplitPane = styled(SplitPane)`
   box-sizing: border-box;
   
   .Resizer {
-    background: #5a67d8; // Stylizacja separatora na kolor pasujący do aplikacji
+    background: #5a67d8;
     z-index: 10;
     box-sizing: inherit;
     background-clip: padding-box;
@@ -84,7 +81,7 @@ const StyledSplitPane = styled(SplitPane)`
 
   .Resizer:hover {
     background: #4c51bf;
-    width: 12px; // Subtelny efekt powiększenia podczas najechania myszką
+    width: 12px;
   }
 
   .Resizer.vertical {

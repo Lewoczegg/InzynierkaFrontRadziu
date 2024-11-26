@@ -1,6 +1,6 @@
 import { Box, Text, Tabs, TabList, TabPanels, Tab, TabPanel, Spinner, Center } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { fetchDailyTaskById } from "../api"; // Importujemy nowe API
+import { fetchDailyTaskById } from "../api";
 
 const DailyTask = ({ taskId }) => {
   const [task, setTask] = useState(null);
@@ -11,7 +11,7 @@ const DailyTask = ({ taskId }) => {
     const getDailyTask = async () => {
       try {
         setLoading(true);
-        const taskData = await fetchDailyTaskById(taskId); // Pobieramy dane zadania codziennego
+        const taskData = await fetchDailyTaskById(taskId);
         setTask(taskData);
       } catch (err) {
         setError("Failed to fetch daily task. Please try again later.");
@@ -49,7 +49,6 @@ const DailyTask = ({ taskId }) => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            {/* Box, który zawiera tytuł i opis zadania */}
             <Box
               bg="#1b1133"
               p={6}
@@ -63,7 +62,6 @@ const DailyTask = ({ taskId }) => {
                   <Text fontSize="2xl" mb={4} fontWeight="bold" color="white">
                     {task.title}
                   </Text>
-                  {/* Formatowanie opisu z podziałem na linie */}
                   <Text fontSize="md" mb={4} color="#e2e2e2">
                     {task.description.split('\n').map((line, index) => (
                       <span key={index}>

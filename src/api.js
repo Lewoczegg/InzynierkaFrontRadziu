@@ -243,7 +243,19 @@ export const fetchVideo = async (videoId) => {
         });
         return response.data;
     } catch (error) {
-        console.error("Błąd podczas pobierania wideo:", error);
+        console.error("Error fetching video:", error);
         throw error; 
+    }
+};
+
+export const analyzeCodeRequest = async (message) => {
+    try {
+        const response = await API.post("/CodeAnalysis/run-and-analyze", {
+            message
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error in analyzeCodeRequest:", error.response);
+        throw new Error(error.response?.data?.message || "Failed to analyze code.");
     }
 };

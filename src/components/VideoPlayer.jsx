@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, Text, Center, Spinner } from "@chakra-ui/react";
-import { fetchVideo } from "../api"; // Import funkcji API
+import { fetchVideo } from "../api";
 
 const VideoPlayer = ({ fileName }) => {
   const [videoSrc, setVideoSrc] = useState(null);
@@ -11,9 +11,9 @@ const VideoPlayer = ({ fileName }) => {
     const getVideo = async () => {
       try {
         setLoading(true);
-        const videoBlob = await fetchVideo(fileName); // Pobierz dane wideo na podstawie `fileName`
-        const videoUrl = URL.createObjectURL(videoBlob); // Stwórz URL dla wideo
-        setVideoSrc(videoUrl); // Ustaw źródło wideo
+        const videoBlob = await fetchVideo(fileName);
+        const videoUrl = URL.createObjectURL(videoBlob);
+        setVideoSrc(videoUrl);
       } catch (error) {
         setError("Nie udało się pobrać wideo. Spróbuj ponownie później.");
       } finally {
@@ -27,7 +27,7 @@ const VideoPlayer = ({ fileName }) => {
 
     return () => {
       if (videoSrc) {
-        URL.revokeObjectURL(videoSrc); // Zwolnij pamięć
+        URL.revokeObjectURL(videoSrc);
       }
     };
   }, [fileName]);
@@ -45,7 +45,7 @@ const VideoPlayer = ({ fileName }) => {
         <Center>
           <Spinner size="xl" color="teal.300" />
           <Text mt={4} fontSize="lg" color="gray.300">
-            Ładowanie wideo...
+            Loading video...
           </Text>
         </Center>
       ) : error ? (
@@ -61,7 +61,7 @@ const VideoPlayer = ({ fileName }) => {
           style={{ borderRadius: "md", boxShadow: "lg" }}
         >
           <source src={videoSrc} type="video/mp4" />
-          Twoja przeglądarka nie wspiera odtwarzania wideo.
+          Your browser does not support the video tag.
         </video>
       )}
     </Box>

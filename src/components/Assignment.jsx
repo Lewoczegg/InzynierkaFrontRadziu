@@ -32,6 +32,7 @@ const Assignment = ({ assignmentId }) => {
   const toast = useToast();
   const [videoExists, setVideoExists] = useState(false);
   const fileInputRef = useRef(null);
+  const [isBlurVisible, setIsBlurVisible] = useState(true);
 
   useEffect(() => {
     const getAssignment = async () => {
@@ -125,6 +126,10 @@ const Assignment = ({ assignmentId }) => {
     }
   };
 
+  const handleBlurClick = () => {
+    setIsBlurVisible(false);
+  };
+
   if (loading) {
     return (
       <Center height="100vh">
@@ -181,6 +186,28 @@ const Assignment = ({ assignmentId }) => {
           </TabPanel>
 
           <TabPanel>
+            {isBlurVisible && (
+              <Box
+                position="absolute"
+                top="50px"
+                left="0"
+                right="0"
+                bottom="0"
+                bg="rgba(0, 0, 0, 0.5)"
+                backdropFilter="blur(5px)"
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                zIndex="10"
+                borderRadius="md"
+                onClick={handleBlurClick}
+                cursor="pointer"
+              >
+                <Text color="white" fontSize="lg">
+                  Click to view the content
+                </Text>
+              </Box>
+            )}
             <Solutions assignmentId={assignmentId} />
           </TabPanel>
 
@@ -199,7 +226,7 @@ const Assignment = ({ assignmentId }) => {
                 boxShadow="md"
               >
                 <Text fontSize="xl" color="yellow.500" fontWeight="bold">
-                  Zadanie jeszcze nie zgłoszone
+                  Task not submitted yet
                 </Text>
               </Box>
             ) : (
@@ -249,7 +276,7 @@ const Assignment = ({ assignmentId }) => {
       {videoExists && (
         <Box mt={2} p={4} bg="#1b1133" borderRadius="lg" boxShadow="md">
           <Text fontSize="lg" mb={4} color="gray.100">
-            Uploaded Video
+            Tutorial Video
           </Text>
           <VideoPlayer fileName={`${assignmentId}`} />
         </Box>

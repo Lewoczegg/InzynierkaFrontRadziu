@@ -4,11 +4,10 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 
 const AuthPage = () => {
-  // Przechowujemy stan, który mówi, czy użytkownik jest w widoku logowania czy rejestracji
   const [isLoginView, setIsLoginView] = useState(true);
 
   return (
-    <Box w="100%" maxW="md" mx="auto" p={4} borderWidth="1px" borderRadius="md">
+    <Box w="100%" maxW="md" mx="auto" p={4} borderWidth="1px" borderRadius="md" mt={12}>
       <VStack spacing={4}>
         <Text fontSize="2xl" mb={4}>
           {isLoginView ? "Login" : "Register"}

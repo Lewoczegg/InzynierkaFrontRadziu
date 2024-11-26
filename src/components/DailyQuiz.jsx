@@ -108,10 +108,10 @@ function DailyQuiz() {
           textAlign="center"
         >
           <Text fontSize="2xl" fontWeight="bold" color="yellow.400">
-            Dzisiaj quiz został zrobiony.
+            Daily Quiz Already Completed
           </Text>
           <Text fontSize="lg" mt={4} color="gray.200">
-            Spróbuj ponownie jutro, aby rozwiązać kolejny quiz i zdobyć więcej punktów!
+            You have already completed the daily quiz. Check back tomorrow for a new quiz!
           </Text>
         </Box>
       </Box>

@@ -130,7 +130,6 @@ const UserProfile = () => {
 
       <HStack align="start" spacing={8} w="100%">
         <VStack align="stretch" w="30%" spacing={6}>
-          {/* Box dla informacji o poziomie i tytule */}
           <Box
             p={6}
             bg="#2c1e4b"
@@ -187,7 +186,6 @@ const UserProfile = () => {
 
           </Box>
 
-          {/* Box dla informacji użytkownika */}
           <Box
             p={6}
             bg="#2c1e4b"
@@ -211,7 +209,6 @@ const UserProfile = () => {
             )}
           </Box>
 
-          {/* Paski postępu */}
           <Box
             p={6}
             bg="#2c1e4b"

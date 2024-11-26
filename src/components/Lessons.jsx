@@ -46,7 +46,6 @@ function Lessons() {
       color="gray.300"
       p={10}
     >
-      {/* Sekcja powitalna */}
       <Box
         bg="#1b1133"
         borderRadius="lg"
@@ -63,7 +62,6 @@ function Lessons() {
         </Text>
       </Box>
 
-      {/* Lista lekcji */}
       {lessons.length === 0 ? (
         <Box
           bg="#1b1133"

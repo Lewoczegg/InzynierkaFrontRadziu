@@ -4,7 +4,6 @@ import { FiAward, FiClipboard } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 
-// Wersja z DailyQuizTile
 function DailyQuizTile() {
   const { isLoggedIn } = useAuth();
   const navigate = useNavigate();
@@ -28,9 +27,8 @@ function DailyQuizTile() {
         transform: 'scale(1.05)',
         boxShadow: 'xl',
       }}
-      flex="1" // Dodanie tej właściwości, aby się równomiernie rozciągało
+      flex="1"
     >
-      {/* Lewy pasek */}
       <Box
         bg="teal.400"
         borderRadius="md"
@@ -39,7 +37,6 @@ function DailyQuizTile() {
         mt="8px"
         mb="8px"
       />
-      {/* Zawartość */}
       <Box
         flex="1"
         p={6}

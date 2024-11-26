@@ -27,9 +27,8 @@ function DailyTaskTile() {
         transform: 'scale(1.05)',
         boxShadow: 'xl',
       }}
-      flex="1" // Dodanie tej właściwości, aby się równomiernie rozciągało
+      flex="1"
     >
-      {/* Lewy pasek */}
       <Box
         bg="orange.400"
         borderRadius="md"
@@ -38,7 +37,6 @@ function DailyTaskTile() {
         mt="8px"
         mb="8px"
       />
-      {/* Zawartość */}
       <Box
         flex="1"
         p={6}

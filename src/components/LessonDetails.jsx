@@ -48,7 +48,6 @@ function LessonDetails() {
       color="gray.300"
       p={10}
     >
-      {/* Sekcja powitalna */}
       <Box
         bg="#1b1133"
         borderRadius="lg"
@@ -67,7 +66,6 @@ function LessonDetails() {
         </Text>
       </Box>
 
-      {/* Lista zadań */}
       {assignments.length === 0 ? (
         <Box
           bg="#1b1133"

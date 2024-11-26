@@ -30,7 +30,7 @@ function MenuBar() {
       justify="start"
       padding="0.5rem"
       bg="#1b1133"
-      color="whiteAlpha.900" // kolor tekstu, aby był kontrastowy, w stylu 'colorScheme'
+      color="whiteAlpha.900"
       boxShadow="0px -5px 20px rgba(200, 200, 200, 0.4)"
       borderRadius="md"
       position="fixed"
@@ -47,9 +47,8 @@ function MenuBar() {
     </Link>
   </Box>
 
-  {/* Menu widoczne tylko dla zalogowanych użytkowników */}
   {isLoggedIn && (
-    <Flex gap={3} align="center" ml={4}>  {/* Dodajemy margines z lewej strony, aby elementy były odrobinę oddzielone od logo */}
+    <Flex gap={3} align="center" ml={4}>
       <Link to="/courses">
         <Button
           variant="ghost"

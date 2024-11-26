@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Box, Text, SimpleGrid, Spinner, Center, Link, Button } from '@chakra-ui/react';
-import { fetchLessons } from '../api'; // Import funkcji API
+import { fetchLessons } from '../api';
 import { useParams, Link as RouterLink } from 'react-router-dom';
 
 function CourseDetails() {
@@ -48,7 +48,6 @@ function CourseDetails() {
       color="gray.300"
       p={10}
     >
-      {/* Sekcja powitalna */}
       <Box
         bg="#1b1133"
         borderRadius="lg"
@@ -65,7 +64,6 @@ function CourseDetails() {
         </Text>
       </Box>
 
-      {/* Lista lekcji */}
       {lessons.length === 0 ? (
         <Box
           bg="#1b1133"

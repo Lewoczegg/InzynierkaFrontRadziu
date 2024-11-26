@@ -49,7 +49,6 @@ function App() {
             path="/"
             element={
               <Box flex="1" minH="100%" overflow="hidden">
-                {/* Sekcja Powitalna */}
                 <Box
                   bg="#1b1133"
                   borderRadius="lg"
@@ -84,7 +83,6 @@ function App() {
                   </Button>
                 </Box>
 
-                {/* Sekcja z DailyQuizTile i DailyTaskTile */}
                 <Stack
                   direction={{ base: "column", md: "row" }}
                   spacing={6}
@@ -97,7 +95,6 @@ function App() {
                   <DailyTaskTile />
                 </Stack>
 
-                {/* Karty poziome */}
                 <Flex
                   direction={{ base: "column", md: "row" }}
                   justifyContent="space-between"
