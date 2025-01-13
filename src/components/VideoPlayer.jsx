@@ -15,7 +15,7 @@ const VideoPlayer = ({ fileName }) => {
         const videoUrl = URL.createObjectURL(videoBlob);
         setVideoSrc(videoUrl);
       } catch (error) {
-        setError("Nie udało się pobrać wideo. Spróbuj ponownie później.");
+        setError("Failed to download the video. Please try again later.");
       } finally {
         setLoading(false);
       }
@@ -35,21 +35,24 @@ const VideoPlayer = ({ fileName }) => {
   return (
     <Box
       p={6}
-      bg="#1e1e2e"
+      bg="white"
       borderRadius="lg"
-      boxShadow="xl"
+      boxShadow="lg"
       textAlign="center"
-      color="white"
+      color="gray.800"
     >
+      <Text fontSize="2xl" mb={4} fontWeight="bold" color="teal.600" textAlign="left">
+        Tutorial Video
+      </Text>
       {loading ? (
-        <Center>
-          <Spinner size="xl" color="teal.300" />
-          <Text mt={4} fontSize="lg" color="gray.300">
+        <Center flexDirection="column">
+          <Spinner size="xl" color="teal.500" />
+          <Text mt={4} fontSize="lg" color="gray.600">
             Loading video...
           </Text>
         </Center>
       ) : error ? (
-        <Text fontSize="xl" color="red.500" fontWeight="bold">
+        <Text fontSize="xl" color="red.600" fontWeight="bold">
           {error}
         </Text>
       ) : (
@@ -58,13 +61,17 @@ const VideoPlayer = ({ fileName }) => {
           preload="metadata"
           width="100%"
           height="auto"
-          style={{ borderRadius: "md", boxShadow: "lg" }}
+          style={{
+            borderRadius: "12px",
+            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+          }}
         >
           <source src={videoSrc} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       )}
     </Box>
+
   );
 };
 

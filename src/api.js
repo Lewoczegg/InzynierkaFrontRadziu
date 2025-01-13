@@ -36,12 +36,16 @@ export const registerUser = async (userData) => {
 
 export const loginUser = async (username, password) => {
     try {
+        //wysyła zapytanie do serwera
         const response = await API.post("/api/auth/login", { username, password });
         if (response.data.token) {
+            //przechowuje token w localStorage
             localStorage.setItem("token", response.data.token);
         }
+        //zwraca dane z odpowiedzi
         return response.data;
     } catch (error) {
+        //jeśli wystąpi błąd, zwraca komunikat o błędzie
         throw new Error(error.response?.data?.message || "Login failed");
     }
 };
@@ -193,7 +197,7 @@ export const fetchDailyTaskById = async (taskId) => {
 export const fetchAssignmentCompletionPercentage = async () => {
     try {
         const response = await API.get('/Progress/assignmentCompletionPercentage');
-        return response.data; // Zakładamy, że response.data zawiera obiekt {"count": 100.0}
+        return response.data;
     } catch (error) {
         console.error("Error in fetchAssignmentCompletionPercentage:", error.response);
         throw new Error(error.response?.data?.message || "Failed to fetch assignment completion percentage.");
@@ -203,7 +207,7 @@ export const fetchAssignmentCompletionPercentage = async () => {
 export const fetchCourseCompletionPercentage = async () => {
     try {
         const response = await API.get('/Progress/courseCompletionPercentage');
-        return response.data; // Zakładamy, że response.data zawiera obiekt {"count": 100.0}
+        return response.data;
     } catch (error) {
         console.error("Error in fetchCourseCompletionPercentage:", error.response);
         throw new Error(error.response?.data?.message || "Failed to fetch course completion percentage.");
@@ -213,7 +217,7 @@ export const fetchCourseCompletionPercentage = async () => {
 export const fetchLessonCompletionPercentage = async () => {
     try {
         const response = await API.get('/Progress/lessonCompletionPercentage');
-        return response.data; // Zakładamy, że response.data zawiera obiekt {"count": 100.0}
+        return response.data;
     } catch (error) {
         console.error("Error in fetchLessonCompletionPercentage:", error.response);
         throw new Error(error.response?.data?.message || "Failed to fetch lesson completion percentage.");
@@ -229,7 +233,7 @@ export const uploadVideo = async (file) => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      return response.data; // Zwracamy odpowiedź z serwera
+      return response.data;
     } catch (error) {
       console.error('Error uploading video:', error);
       throw error;

@@ -28,22 +28,34 @@ const CodeEditor = ({ taskId, isDailyTask, startTime }) => {
   };
 
   return (
-    <Box w="100%">
+    <Box w="100%" bgGradient="linear(to-b, #f5f7fa, #e9eff5)" p={4} borderRadius="lg" boxShadow="lg">
       <HStack spacing={4}>
         <Box w={"100%"}>
           <LanguageSelector language={language} onSelect={onSelect} />
 
           <Editor
             height="67vh"
-            theme="vs-dark"
+            theme="vs-white"
             language={language}
             defaultValue={value}
             onMount={onMount}
             value={value}
             onChange={(newValue) => setValue(newValue)}
+            options={{
+              fontSize: 14,
+              minimap: { enabled: false },
+              scrollBeyondLastLine: false,
+              smoothScrolling: true,
+              cursorSmoothCaretAnimation: true,
+            }}
+            style={{
+              borderRadius: "8px",
+              border: "1px solid #d9dde3",
+              boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+            }}
           />
 
-          <Box mt={4} mb={2} p={4} bg="#1b1133" borderRadius="lg" boxShadow="md" minH="100px">
+          <Box mt={4} mb={2} p={4} bg="white" borderRadius="lg" boxShadow="md" minH="100px">
             <Output
               editorRef={editorRef}
               language={language}

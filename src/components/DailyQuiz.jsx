@@ -91,32 +91,32 @@ function DailyQuiz() {
   if (alreadyDone) {
     return (
       <Box
-        height="100vh"
+        height="80vh"
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-        color="gray.300"
+        color="gray.800"
       >
         <Box
           p={6}
-          bg="#1b1133"
+          bgGradient="linear(to-r,rgb(185, 221, 255),rgb(230, 245, 255))"
           borderRadius="lg"
-          boxShadow="xl"
+          boxShadow="0px 6px 15px rgba(0, 0, 0, 0.1)"
           width={{ base: "90%", md: "70%", lg: "50%" }}
           maxWidth="600px"
           textAlign="center"
         >
-          <Text fontSize="2xl" fontWeight="bold" color="yellow.400">
+          <Text fontSize="2xl" fontWeight="bold" color="teal.600">
             Daily Quiz Already Completed
           </Text>
-          <Text fontSize="lg" mt={4} color="gray.200">
+          <Text fontSize="lg" mt={4} color="gray.700">
             You have already completed the daily quiz. Check back tomorrow for a new quiz!
           </Text>
         </Box>
       </Box>
     );
   }
+
 
   if (error) {
     return (
@@ -127,23 +127,51 @@ function DailyQuiz() {
   }
 
   return (
-    <Box p={4} bgGradient="linear(to-b, #0f0a19, #1a1a40)" mt={5} borderRadius="md" color="white">
+    <Box
+      p={4}
+      bgGradient="linear(to-b, #f5f7fa, #e2ebf0)"
+      mt={5}
+      borderRadius="md"
+      color="gray.800"
+    >
       <Text fontSize="2xl" mb={4} fontWeight="bold">
         {quiz.title}
       </Text>
       <VStack align="start" spacing={6}>
         {quiz.questions.map((question) => (
-          <Box key={question.questionId} w="100%" p={4} bg="#1b1133" borderRadius="md">
-            <Text mb={2} fontWeight="bold">
+          <Box
+            key={question.questionId}
+            w="100%"
+            p={4}
+            bgGradient="linear(to-r, #e9eff5, #cfd9df)"
+            borderRadius="md"
+            boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)"
+          >
+            <Text mb={2} fontSize="large" fontWeight="bold" color="teal.600">
               {question.content}
             </Text>
             <RadioGroup
               onChange={(value) => handleAnswerChange(question.questionId, value)}
               value={answers[question.questionId]}
             >
-              <Stack direction="column">
+              <Stack direction="column" spacing={4}>
                 {question.options.map((option, index) => (
-                  <Radio key={index} value={option}>
+                  <Radio
+                    key={index}
+                    value={option}
+                    colorScheme="teal"
+                    size="md"
+                    borderWidth="2px"
+                    borderColor="gray.400"
+                    _checked={{
+                      borderColor: "teal.600",
+                      bg: "teal.400",
+                      color: "white",
+                    }}
+                    _hover={{
+                      borderColor: "teal.500",
+                    }}
+                  >
                     {option}
                   </Radio>
                 ))}
@@ -152,9 +180,22 @@ function DailyQuiz() {
           </Box>
         ))}
       </VStack>
-      <Button colorScheme="teal" size="lg" mt={6} onClick={handleSubmit}>
+
+      <Button
+        bgGradient="linear(to-r, #2a7a69, #56c1aa)"
+        color="white"
+        _hover={{ bgGradient: "linear(to-r, #20775c, #4da08f)" }}
+        _active={{ bgGradient: "linear(to-r, #1f6c55, #479d89)" }}
+        size="lg"
+        mt={6}
+        width="100%"
+        borderRadius="md"
+        boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)"
+        onClick={handleSubmit}
+      >
         Submit Quiz
       </Button>
+
     </Box>
   );
 }

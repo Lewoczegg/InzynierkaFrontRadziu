@@ -50,14 +50,36 @@ const Solutions = ({ assignmentId }) => {
 
   return (
     <Box
-      color="gray.300"
+      color="gray.800"
+      bg="white"
+      borderRadius="lg"
+      boxShadow="lg"
+      p={6}
     >
       <Flex mb={6} flexWrap="wrap" gap={4}>
         {solutions.map((solution) => (
           <Button
             key={solution.solutionId}
-            colorScheme={selectedLanguage?.toLowerCase() === solution.language.toLowerCase() ? "teal" : "gray"}
-            variant={selectedLanguage?.toLowerCase() === solution.language.toLowerCase() ? "solid" : "outline"}
+            colorScheme={
+              selectedLanguage?.toLowerCase() === solution.language.toLowerCase()
+                ? "teal"
+                : "gray.500"
+            }
+            variant={
+              selectedLanguage?.toLowerCase() === solution.language.toLowerCase()
+                ? "solid"
+                : "solid"
+            }
+            bg={
+              selectedLanguage?.toLowerCase() === solution.language.toLowerCase()
+                ? "teal.500"
+                : "gray.100"
+            }
+            _hover={{
+              bg: selectedLanguage?.toLowerCase() === solution.language.toLowerCase()
+                ? "teal.600"
+                : "gray.300",
+            }}
             onClick={() => setSelectedLanguage(solution.language)}
             size="md"
           >
@@ -71,30 +93,37 @@ const Solutions = ({ assignmentId }) => {
           <Box
             w="100%"
             p={6}
-            bg="#2c1e4b"
+            bg="gray.100"
             borderRadius="lg"
             boxShadow="md"
-            color="gray.100"
+            color="gray.700"
           >
-            <Text fontWeight="bold" mb={4}>
+            <Text fontWeight="bold" mb={4} fontSize="lg" color="teal.600">
               Selected Solution in {selectedLanguage}:
             </Text>
-            <pre style={{ whiteSpace: "pre-wrap", wordWrap: "break-word", color: "#c3c3c3" }}>
+            <pre
+              style={{
+                whiteSpace: "pre-wrap",
+                wordWrap: "break-word",
+                color: "gray.800",
+              }}
+            >
               {selectedSolution.content}
             </pre>
           </Box>
         </VStack>
       ) : (
         <Center>
-          <Alert status="warning" w="100%" borderRadius="md" bg="#1b1133" boxShadow="md">
-            <AlertIcon color="yellow.400" />
-            <Text fontSize="lg" color="yellow.300" fontWeight="bold">
+          <Alert status="warning" w="100%" borderRadius="md" bg="yellow.100" boxShadow="md">
+            <AlertIcon color="yellow.500" />
+            <Text fontSize="lg" color="yellow.600" fontWeight="bold">
               No solution available for the selected language.
             </Text>
           </Alert>
         </Center>
       )}
     </Box>
+
   );
 };
 

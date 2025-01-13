@@ -30,8 +30,8 @@ function DailyTaskEditor() {
           setStartTime(getLocalISOString());
           setTask(taskData);
         }
-        
-        
+
+
       } catch (err) {
         setError('Failed to fetch the daily task. Please try again later.');
       } finally {
@@ -53,32 +53,32 @@ function DailyTaskEditor() {
   if (alreadyDone) {
     return (
       <Box
-        height="100vh"
+        height="80vh"
         display="flex"
         alignItems="center"
         justifyContent="center"
-        bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-        color="gray.300"
+        color="gray.800"
       >
         <Box
           p={6}
-          bg="#1b1133"
+          bgGradient="linear(to-r,rgb(185, 221, 255),rgb(230, 245, 255))"
           borderRadius="lg"
-          boxShadow="xl"
+          boxShadow="0px 6px 15px rgba(0, 0, 0, 0.1)"
           width={{ base: "90%", md: "70%", lg: "50%" }}
           maxWidth="600px"
           textAlign="center"
         >
-          <Text fontSize="2xl" fontWeight="bold" color="yellow.400">
+          <Text fontSize="2xl" fontWeight="bold" color="teal.600">
             Daily Task Already Completed
           </Text>
-          <Text fontSize="lg" mt={4} color="gray.200">
+          <Text fontSize="lg" mt={4} color="gray.600">
             You have already completed the daily task. Check back tomorrow for a new task!
           </Text>
         </Box>
       </Box>
     );
   }
+
 
   if (error) {
     return (
@@ -90,49 +90,52 @@ function DailyTaskEditor() {
 
   return (
     <Box
-    bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-    color="gray.300"
-    display="flex"
-    flexDirection="column"
-    overflow="hidden"
-    mt={3}
+      bgGradient="linear(to-b, #f5f7fa, #e9eff5)"
+      color="gray.800"
+      display="flex"
+      flexDirection="column"
+      overflow="hidden"
+      mt={3}
+      borderRadius="lg"
+      boxShadow="lg"
     >
-        <StyledSplitPane
-          split="vertical"
-          defaultSize="50%"
-          minSize={460}
-          maxSize={-460}
-          primary="second"
-          style={{ flex: 1, position: "relative" }}
+      <StyledSplitPane
+        split="vertical"
+        defaultSize="50%"
+        minSize={530}
+        maxSize={-530}
+        primary="second"
+        style={{ flex: 1, position: "relative" }}
+      >
+        <Box
+          p={6}
+          bg="white"
+          borderRadius="lg"
+          boxShadow="md"
+          flex="1"
+          display="flex"
+          minWidth="0"
+          height="100%"
+          overflow="auto"
         >
-          <Box
-            p={6}
-            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-            borderRadius="lg"
-            boxShadow="lg"
-            display="flex"
-            minWidth="0"
-            height="100%" 
-            overflow="auto"
-          >
-            <DailyTask taskId={task.taskId}/>
-          </Box>
+          <DailyTask taskId={task.taskId} />
+        </Box>
 
-          <Box
-            p={6}
-            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-            borderRadius="lg"
-            boxShadow="lg"
-            display="flex"
-            minWidth="0"
-            height="100%" 
-            overflow="auto"
-            
-          >
-            <CodeEditor taskId={`Daily${task.taskId}`} isDailyTask={true} startTime={startTime}/>
-          </Box>
-        </StyledSplitPane>
+        <Box
+          p={6}
+          bg="white"
+          borderRadius="lg"
+          boxShadow="md"
+          display="flex"
+          minWidth="0"
+          height="100%"
+          overflow="auto"
+        >
+          <CodeEditor taskId={`Daily${task.taskId}`} isDailyTask={true} startTime={startTime} />
+        </Box>
+      </StyledSplitPane>
     </Box>
+
   );
 }
 
@@ -141,19 +144,20 @@ export default DailyTaskEditor;
 const StyledSplitPane = styled(SplitPane)`
   height: 100%;
   box-sizing: border-box;
-  
+
   .Resizer {
-    background: #5a67d8;
+    background: #56c1aa;
     z-index: 10;
     box-sizing: inherit;
     background-clip: padding-box;
     width: 10px;
     cursor: col-resize;
     transition: background 0.2s ease, width 0.2s ease;
+    border-radius: 4px;
   }
 
   .Resizer:hover {
-    background: #4c51bf;
+    background: #2a7a69;
     width: 12px;
   }
 
@@ -170,3 +174,4 @@ const StyledSplitPane = styled(SplitPane)`
     cursor: not-allowed;
   }
 `;
+

@@ -49,19 +49,14 @@ function Ranking() {
   }
 
   return (
-    <Box p={10}>
-      <SimpleGrid columns={2} spacing={10}>
-        <Box
-          p={6}
-          bg="#1b1133"
-          borderRadius="lg"
-          boxShadow="lg"
-        >
-          <Text fontSize="2xl" color="white" mb={4}>
+    <Box minH="100vh" bgGradient="linear(to-b, #f5f7fa, #e9eff5)" color="gray.800" p={10}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
+        <Box p={6} bg="white" borderRadius="lg" boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)">
+          <Text fontSize="2xl" fontWeight="bold" mb={4}>
             Quiz Ranking
           </Text>
-          <Table colorScheme="yellow" borderRadius="md" boxShadow="lg">
-            <Thead bg="yellow.600">
+          <Table colorScheme="teal" borderRadius="md" boxShadow="sm">
+            <Thead bg="teal.500">
               <Tr>
                 <Th color="white" fontSize="lg" textAlign="center">Rank</Th>
                 <Th color="white" fontSize="lg" textAlign="center">Username</Th>
@@ -72,30 +67,30 @@ function Ranking() {
               {ranking.map((user, index) => (
                 <Tr
                   key={user.username}
-                  bgColor={index === 0 ? "yellow.700" : "#1b1133"}
+                  bgColor={index === 0 ? "teal.100" : "white"}
                   borderRadius={index === 0 ? "lg" : "none"}
-                  border={index === 0 ? "2px solid gold" : "none"}
+                  border={index === 0 ? "2px solid teal" : "none"}
                 >
                   <Td textAlign="center">
                     {index === 0 ? (
                       <HStack justifyContent="center">
-                        <Text fontSize="xl" fontWeight="bold" color="yellow.300">1</Text>
-                        <Icon as={FaCrown} w={5} h={5} color="yellow.300" />
+                        <Text fontSize="xl" fontWeight="bold" color="teal.700">1</Text>
+                        <Icon as={FaCrown} w={5} h={5} color="teal.700" />
                       </HStack>
                     ) : (
-                      <Text fontSize="md" color="whiteAlpha.900">{index + 1}</Text>
+                      <Text fontSize="md" color="gray.600">{index + 1}</Text>
                     )}
                   </Td>
                   <Td
                     textAlign="center"
-                    color={index === 0 ? "yellow.300" : "whiteAlpha.900"}
+                    color={index === 0 ? "teal.700" : "gray.600"}
                     fontWeight={index === 0 ? "bold" : "normal"}
                   >
                     {user.username}
                   </Td>
                   <Td
                     textAlign="center"
-                    color={index === 0 ? "yellow.300" : "whiteAlpha.900"}
+                    color={index === 0 ? "teal.700" : "gray.600"}
                     fontWeight={index === 0 ? "bold" : "normal"}
                   >
                     {user.points}
@@ -105,17 +100,12 @@ function Ranking() {
             </Tbody>
           </Table>
         </Box>
-        <Box
-          p={6}
-          bg="#1b1133"
-          borderRadius="lg"
-          boxShadow="lg"
-        >
-          <Text fontSize="2xl" color="white" mb={4}>
+        <Box p={6} bg="white" borderRadius="lg" boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)">
+          <Text fontSize="2xl" fontWeight="bold" mb={4}>
             Task Ranking
           </Text>
-          <Table colorScheme="yellow" borderRadius="md" boxShadow="lg">
-            <Thead bg="yellow.600">
+          <Table colorScheme="teal" borderRadius="md" boxShadow="sm">
+            <Thead bg="teal.500">
               <Tr>
                 <Th color="white" fontSize="lg" textAlign="center">Rank</Th>
                 <Th color="white" fontSize="lg" textAlign="center">Username</Th>
@@ -126,30 +116,30 @@ function Ranking() {
               {totalPoints.map((user, index) => (
                 <Tr
                   key={user.username}
-                  bgColor={index === 0 ? "yellow.700" : "#1b1133"}
+                  bgColor={index === 0 ? "teal.100" : "white"}
                   borderRadius={index === 0 ? "lg" : "none"}
-                  border={index === 0 ? "2px solid gold" : "none"}
+                  border={index === 0 ? "2px solid teal" : "none"}
                 >
                   <Td textAlign="center">
                     {index === 0 ? (
                       <HStack justifyContent="center">
-                        <Text fontSize="xl" fontWeight="bold" color="yellow.300">1</Text>
-                        <Icon as={FaCrown} w={5} h={5} color="yellow.300" />
+                        <Text fontSize="xl" fontWeight="bold" color="teal.700">1</Text>
+                        <Icon as={FaCrown} w={5} h={5} color="teal.700" />
                       </HStack>
                     ) : (
-                      <Text fontSize="md" color="whiteAlpha.900">{index + 1}</Text>
+                      <Text fontSize="md" color="gray.600">{index + 1}</Text>
                     )}
                   </Td>
                   <Td
                     textAlign="center"
-                    color={index === 0 ? "yellow.300" : "whiteAlpha.900"}
+                    color={index === 0 ? "teal.700" : "gray.600"}
                     fontWeight={index === 0 ? "bold" : "normal"}
                   >
                     {user.username}
                   </Td>
                   <Td
                     textAlign="center"
-                    color={index === 0 ? "yellow.300" : "whiteAlpha.900"}
+                    color={index === 0 ? "teal.700" : "gray.600"}
                     fontWeight={index === 0 ? "bold" : "normal"}
                   >
                     {user.points}

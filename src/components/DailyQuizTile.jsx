@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Text, Icon, VStack, Flex } from '@chakra-ui/react';
-import { FiAward, FiClipboard } from 'react-icons/fi';
+import { FiAward } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from "../context/AuthContext";
 
@@ -25,12 +25,14 @@ function DailyQuizTile() {
       transition="transform 0.2s, box-shadow 0.2s"
       _hover={{
         transform: 'scale(1.05)',
-        boxShadow: 'xl',
+        boxShadow: 'lg',
       }}
       flex="1"
+      borderRadius="md"
+      border="transparent"
     >
       <Box
-        bg="teal.400"
+        bg="#2a7a69"
         borderRadius="md"
         width="10px"
         marginRight="8px"
@@ -40,19 +42,20 @@ function DailyQuizTile() {
       <Box
         flex="1"
         p={6}
-        bg="#2c1e4b"
+        bg="#f7f9fc"
         borderRadius="md"
+        boxShadow="md"
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
         <VStack spacing={4} align="center">
-          <Icon as={FiAward} w={16} h={16} color="yellow.300" />
-          <Text fontSize="2xl" fontWeight="bold" color="gray.100">
+          <Icon as={FiAward} w={16} h={16} color="#316fa8" />
+          <Text fontSize="2xl" fontWeight="bold" color="gray.800">
             Daily Quiz
           </Text>
-          <Text fontSize="md" color="gray.100">
+          <Text fontSize="md" color="gray.600">
             Test your knowledge today and earn points!
           </Text>
         </VStack>

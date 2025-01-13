@@ -29,10 +29,9 @@ function MenuBar() {
       align="center"
       justify="start"
       padding="0.5rem"
-      bg="#1b1133"
-      color="whiteAlpha.900"
-      boxShadow="0px -5px 20px rgba(200, 200, 200, 0.4)"
-      borderRadius="md"
+      bgGradient="linear(to-r, #2a7a69, #316fa8)"
+      color="white"
+      boxShadow="0px 2px 10px rgba(0, 0, 0, 0.1)"
       position="fixed"
       zIndex="1000"
       top="0"
@@ -40,72 +39,89 @@ function MenuBar() {
       width="100%"
     >
       <Box w="auto">
-    <Link to="/">
-      <Button alt="Logo" variant="ghost" colorScheme="grey" _hover={{ background: "none", color: "inherit" }}>
-        Code-Series
-      </Button>
-    </Link>
-  </Box>
+        <Link to="/">
+          <Button
+            alt="Logo"
+            variant="ghost"
+            color="white"
+            fontWeight="bold"
+            _hover={{ color: "yellow.300" }}
+          >
+            Code-Series
+          </Button>
+        </Link>
+      </Box>
 
-  {isLoggedIn && (
-    <Flex gap={3} align="center" ml={4}>
-      <Link to="/courses">
-        <Button
-          variant="ghost"
-          color={location.pathname === "/courses" ? "white" : "whiteAlpha.700"}
-          fontSize="sm"
-        >
-          Courses
-        </Button>
-      </Link>
-      <Link to="/lessons">
-        <Button
-          variant="ghost"
-          color={location.pathname === "/lessons" ? "white" : "whiteAlpha.700"}
-          fontSize="sm"
-        >
-          Lessons
-        </Button>
-      </Link>
-      <Link to="/assignments">
-        <Button
-          variant="ghost"
-          color={location.pathname === "/assignments" ? "white" : "whiteAlpha.700"}
-          fontSize="sm"
-        >
-          Assignments
-        </Button>
-      </Link>
-      <Link to="/user-profile">
-        <Button
-          variant="ghost"
-          color={location.pathname === "/user-profile" ? "white" : "whiteAlpha.700"}
-          fontSize="sm"
-        >
-          User Profile
-        </Button>
-      </Link>
-      <Link to="/ranking">
-        <Button
-          variant="ghost"
-          color={location.pathname === "/ranking" ? "white" : "whiteAlpha.700"}
-          fontSize="sm"
-        >
-          Ranking
-        </Button>
-      </Link>
-    </Flex>
-  )}
+      {isLoggedIn && (
+        <Flex gap={3} align="center" ml={4}>
+          <Link to="/courses">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/courses" ? "yellow.300" : "whiteAlpha.800"}
+              fontSize="sm"
+              _hover={{ color: "yellow.300" }}
+            >
+              Courses
+            </Button>
+          </Link>
+          <Link to="/lessons">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/lessons" ? "yellow.300" : "whiteAlpha.800"}
+              fontSize="sm"
+              _hover={{ color: "yellow.300" }}
+            >
+              Lessons
+            </Button>
+          </Link>
+          <Link to="/assignments">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/assignments" ? "yellow.300" : "whiteAlpha.800"}
+              fontSize="sm"
+              _hover={{ color: "yellow.300" }}
+            >
+              Assignments
+            </Button>
+          </Link>
+          <Link to="/user-profile">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/user-profile" ? "yellow.300" : "whiteAlpha.800"}
+              fontSize="sm"
+              _hover={{ color: "yellow.300" }}
+            >
+              User Profile
+            </Button>
+          </Link>
+          <Link to="/ranking">
+            <Button
+              variant="ghost"
+              color={location.pathname === "/ranking" ? "yellow.300" : "whiteAlpha.800"}
+              fontSize="sm"
+              _hover={{ color: "yellow.300" }}
+            >
+              Ranking
+            </Button>
+          </Link>
+        </Flex>
+      )}
       <HStack ml="auto" spacing={4}>
         {isLoggedIn ? (
-          <Button onClick={handleLogout} variant="ghost" color="whiteAlpha.700">
+          <Button
+            onClick={handleLogout}
+            variant="ghost"
+            color="whiteAlpha.800"
+            _hover={{ color: "yellow.300" }}
+          >
             Log out
           </Button>
         ) : (
           <Link to="/auth">
             <Button
               variant="ghost"
-              color={location.pathname === "/auth" ? "white" : "whiteAlpha.700"}
+              color={location.pathname === "/auth" ? "yellow.300" : "whiteAlpha.800"}
+              _hover={{ color: "yellow.300" }}
             >
               Log in
             </Button>
@@ -117,4 +133,3 @@ function MenuBar() {
 }
 
 export default MenuBar;
-

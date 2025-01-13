@@ -63,15 +63,37 @@ const RegisterForm = ({ switchToLogin }) => {
   };
 
   return (
-    <Box w="100%">
+    <Box
+      w="100%"
+      maxW="lg"
+      mx="auto"
+      p={8}
+      borderRadius="lg"
+      bgGradient="linear(to-r,rgb(101, 190, 171),rgb(100, 241, 211))"
+      boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)"
+    >
       <form onSubmit={handleRegister}>
-        <VStack spacing={4}>
+        <VStack spacing={6} align="stretch">
+          <Text
+            fontSize="2xl"
+            fontWeight="bold"
+            textAlign="center"
+            color="gray.800"
+            mb={4}
+          >
+            Create Your Account
+          </Text>
           <FormControl id="username" isInvalid={validationErrors.username}>
             <FormLabel>Username</FormLabel>
             <Input
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.username && <FormErrorMessage>{validationErrors.username}</FormErrorMessage>}
           </FormControl>
@@ -83,6 +105,11 @@ const RegisterForm = ({ switchToLogin }) => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.password && <FormErrorMessage>{validationErrors.password}</FormErrorMessage>}
           </FormControl>
@@ -94,6 +121,11 @@ const RegisterForm = ({ switchToLogin }) => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.email && <FormErrorMessage>{validationErrors.email}</FormErrorMessage>}
           </FormControl>
@@ -104,6 +136,11 @@ const RegisterForm = ({ switchToLogin }) => {
               placeholder="First Name"
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.firstName && <FormErrorMessage>{validationErrors.firstName}</FormErrorMessage>}
           </FormControl>
@@ -114,6 +151,11 @@ const RegisterForm = ({ switchToLogin }) => {
               placeholder="Surname"
               value={surname}
               onChange={(e) => setSurname(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.surname && <FormErrorMessage>{validationErrors.surname}</FormErrorMessage>}
           </FormControl>
@@ -124,6 +166,11 @@ const RegisterForm = ({ switchToLogin }) => {
               placeholder="Phone Number"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.phoneNumber && <FormErrorMessage>{validationErrors.phoneNumber}</FormErrorMessage>}
           </FormControl>
@@ -135,13 +182,29 @@ const RegisterForm = ({ switchToLogin }) => {
               type="number"
               value={age}
               onChange={(e) => setAge(e.target.value)}
+              bg="white"
+              borderColor="gray.300"
+              borderRadius="md"
+              _hover={{ borderColor: "teal.400" }}
+              _focus={{ borderColor: "teal.400", boxShadow: "0px 0px 4px teal" }}
             />
             {validationErrors.age && <FormErrorMessage>{validationErrors.age}</FormErrorMessage>}
           </FormControl>
 
-          <Button type="submit" colorScheme="teal" width="full">
+          <Button
+            type="submit"
+            bgGradient="linear(to-r, #3182ce, #63b3ed)"
+            color="white"
+            _hover={{ bgGradient: "linear(to-r, #2b6cb0, #4299e1)" }}
+            _active={{ bgGradient: "linear(to-r, #2a4365, #3182ce)" }}
+            size="lg"
+            width="full"
+            borderRadius="md"
+            boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)"
+          >
             Register
           </Button>
+
 
           {error && <Text color="red.500">{error}</Text>}
         </VStack>

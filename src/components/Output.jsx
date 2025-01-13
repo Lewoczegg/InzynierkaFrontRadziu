@@ -129,10 +129,10 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
             setIsLoading(true);
             let response;
             if (isDailyTask) {
-                response  = await submitDailyTask(taskId, sourceCode, language, startTime);
-              } else {
-                response  = await submitAssignment(taskId, language, sourceCode);
-              }
+                response = await submitDailyTask(taskId, sourceCode, language, startTime);
+            } else {
+                response = await submitAssignment(taskId, language, sourceCode);
+            }
 
             const { result } = response;
 
@@ -146,10 +146,10 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                 });
                 if (isDailyTask) {
                     navigate("/");
-                  } else {
+                } else {
                     navigate("/assignments");
-                  }
-                
+                }
+
             } else {
                 toast({
                     title: "Error",
@@ -188,7 +188,7 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
             setIsLoading(true);
             const result = await analyzeCodeRequest(sourceCode);
             const formattedResult = formatAnalysisResult(result.message);
-    
+
             setAnalyzeResult(formattedResult);
             onOpen();
         } catch (error) {
@@ -204,7 +204,7 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
             setIsLoading(false);
         }
     };
-    
+
     const formatAnalysisResult = (message) => {
         return message
             .split(/(?=\d+\.\s)/)
@@ -216,49 +216,82 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
         <Box w={'100%'} >
             <Flex justifyContent="space-between" alignItems="center" mb={4}>
                 <Box>
-                    <Button variant='outline' colorScheme='blue' mb={4} isLoading={isLoading} onClick={runCode}>
-                        Run code
+                    <Button
+                        variant="solid"
+                        bgGradient="linear(to-r, #2a7a69, #56c1aa)"
+                        color="white"
+                        _hover={{ bgGradient: "linear(to-r, #20775c, #4da08f)" }}
+                        isLoading={isLoading}
+                        onClick={runCode}
+                    >
+                        Run Code
                     </Button>
-                    <Button variant='outline' colorScheme='blue' bg="#4caf50" color="white" _hover={{ bg: "#45a049" }} mb={4} ml={2} isLoading={isLoading} onClick={submitCode}>
+                    <Button
+                        variant="solid"
+                        bgGradient="linear(to-r, #6b46c1, #805ad5)"
+                        color="white"
+                        _hover={{ bgGradient: "linear(to-r, #553c9a, #6b46c1)" }}
+                        ml={2}
+                        isLoading={isLoading}
+                        onClick={submitCode}
+                    >
                         Submit
                     </Button>
                 </Box>
                 <Box>
-                    <Button variant='outline' colorScheme='teal' mb={4} ml={2} isLoading={isLoading} onClick={analyzeCode}>
+                    <Button
+                        variant="solid"
+                        bgGradient="linear(to-r, #319795, #38b2ac)"
+                        color="white"
+                        _hover={{ bgGradient: "linear(to-r, #2c7a7b, #319795)" }}
+                        ml={2}
+                        isLoading={isLoading}
+                        onClick={analyzeCode}
+                    >
                         Analyze Code
                     </Button>
-                    <Button variant='solid' colorScheme='purple' mb={4} ml={2} onClick={onOpen}>
+                    <Button
+                        variant="solid"
+                        bgGradient="linear(to-r, #805ad5, #9f7aea)"
+                        color="white"
+                        _hover={{ bgGradient: "linear(to-r, #6b46c1, #805ad5)" }}
+                        ml={2}
+                        onClick={onOpen}
+                    >
                         View Analysis Result
                     </Button>
                 </Box>
             </Flex>
+
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
-                <ModalContent bgGradient="linear(150deg, #0f0a19, #1a1a40)" maxW="800px">
-                    <ModalHeader>Code Analysis Result</ModalHeader>
+                <ModalContent bgGradient="linear(to-b, #f5f7fa, #e9eff5)" boxShadow="lg" borderRadius="lg" maxW="800px">
+                    <ModalHeader color="teal.600">Code Analysis Result</ModalHeader>
                     <ModalCloseButton />
                     <ModalBody>
-                        <div>
-                            {analyzeResult && analyzeResult.map((item, index) => (
-                                <Text key={index} style={{ marginBottom: '10px' }}>
-                                    {item}
-                                </Text>
-                            ))}
-                        </div>
+                        <Box>
+                            {analyzeResult &&
+                                analyzeResult.map((item, index) => (
+                                    <Text key={index} color="gray.700" mb={4}>
+                                        {item}
+                                    </Text>
+                                ))}
+                        </Box>
                     </ModalBody>
                 </ModalContent>
             </Modal>
+
             {tests.length > 0 ? (
                 <>
-                    <Box mt={4} mb={2} ml={1} w={'100%'}>
-                        <Text fontSize="lg" fontWeight="bold" color={passPercentage === 100 ? 'green.500' : 'yellow.500'}>
+                    <Box mt={4} mb={2} ml={1}>
+                        <Text fontSize="lg" fontWeight="bold" color={passPercentage === 100 ? "green.500" : "yellow.500"}>
                             {passPercentage}% Tests passed
                         </Text>
                     </Box>
-                    <Tabs variant='soft-rounded' colorScheme='gray' mt={4}>
+                    <Tabs variant="soft-rounded" colorScheme="teal" mt={4}>
                         <TabList>
                             {tests.map((test, index) => (
-                                <Tab key={index} color={test.status === 'failed' ? 'red.500' : 'green.500'}>
+                                <Tab key={index} color={test.status === "failed" ? "red.500" : "green.500"}>
                                     Test {index + 1}
                                 </Tab>
                             ))}
@@ -266,25 +299,33 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                         <TabPanels>
                             {tests.map((test, index) => (
                                 <TabPanel key={index}>
-                                    <Box p={6} bg="#2c1e4b" borderRadius="lg" boxShadow="md">
-                                        <Box mb={4} p={4} bg="#1b1133" borderRadius="md">
-                                            <Text fontWeight="bold" mb={2}>Input:</Text>
-                                            <Text>{test.input}</Text>
+                                    <Box p={6} bgGradient="linear(to-r, #e9eff5, #cfd9df)" borderRadius="lg" boxShadow="md">
+                                        <Box mb={4} p={4} bg="white" borderRadius="md" boxShadow="sm">
+                                            <Text fontWeight="bold" mb={2} color="teal.600">
+                                                Input:
+                                            </Text>
+                                            <Text color="gray.700">{test.input}</Text>
                                         </Box>
 
-                                        <Box mb={4} p={4} bg="#1b1133" borderRadius="md">
-                                            <Text fontWeight="bold" mb={2}>Expected Result:</Text>
-                                            <Text>{test.expected}</Text>
+                                        <Box mb={4} p={4} bg="white" borderRadius="md" boxShadow="sm">
+                                            <Text fontWeight="bold" mb={2} color="teal.600">
+                                                Expected Result:
+                                            </Text>
+                                            <Text color="gray.700">{test.expected}</Text>
                                         </Box>
 
-                                        <Box mb={4} p={4} bg="#1b1133" borderRadius="md">
-                                            <Text fontWeight="bold" mb={2}>Actual Result:</Text>
-                                            <Text>{test.actual}</Text>
+                                        <Box mb={4} p={4} bg="white" borderRadius="md" boxShadow="sm">
+                                            <Text fontWeight="bold" mb={2} color="teal.600">
+                                                Actual Result:
+                                            </Text>
+                                            <Text color="gray.700">{test.actual}</Text>
                                         </Box>
 
-                                        <Box p={4} bg="#1b1133" borderRadius="md">
-                                            <Text fontWeight="bold" mb={2}>User Output:</Text>
-                                            <Text>{test.userOutput}</Text>
+                                        <Box p={4} bg="white" borderRadius="md" boxShadow="sm">
+                                            <Text fontWeight="bold" mb={2} color="teal.600">
+                                                User Output:
+                                            </Text>
+                                            <Text color="gray.700">{test.userOutput}</Text>
                                         </Box>
                                     </Box>
                                 </TabPanel>
@@ -293,8 +334,11 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                     </Tabs>
                 </>
             ) : (
-                <Text mt={4}>The result will appear here after running the code.</Text>
+                <Text mt={4} color="gray.600">
+                    The result will appear here after running the code.
+                </Text>
             )}
+
         </Box>
     );
 };

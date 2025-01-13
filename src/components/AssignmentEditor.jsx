@@ -16,50 +16,52 @@ function AssignmentEditor() {
 
   return (
     <Box
-    bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-    color="gray.300"
+    bgGradient="linear(to-b, #f5f7fa, #e9eff5)"
+    color="gray.800"
     display="flex"
     flexDirection="column"
     overflow="hidden"
     mt={3}
+    borderRadius="lg"
+    boxShadow="lg"
+>
+  <StyledSplitPane
+    split="vertical"
+    defaultSize="50%"
+    minSize={530}
+    maxSize={-530}
+    primary="second"
+    style={{ flex: 1, position: "relative" }}
+  >
+    <Box
+      p={6}
+      bg="white"
+      borderRadius="lg"
+      boxShadow="md"
+      flex="1"
+      display="flex"
+      minWidth="0"
+      height="100%"
+      overflow="auto"
     >
-        <StyledSplitPane
-          split="vertical"
-          defaultSize="50%"
-          minSize={530}
-          maxSize={-530}
-          primary="second"
-          style={{ flex: 1, position: "relative" }}
-        >
-          <Box
-            p={6}
-            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-            borderRadius="lg"
-            boxShadow="lg"
-            flex="1"
-            display="flex"
-            minWidth="0"
-            height="100%" 
-            overflow="auto"
-          >
-            <Assignment assignmentId={assignmentId} />
-          </Box>
-
-          <Box
-            p={6}
-            bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-            borderRadius="lg"
-            boxShadow="lg"
-            display="flex"
-            minWidth="0"
-            height="100%" 
-            overflow="auto"
-            
-          >
-            <CodeEditor taskId={taskId} isDailyTask={false} startTime={""} />
-          </Box>
-        </StyledSplitPane>
+      <Assignment assignmentId={assignmentId} />
     </Box>
+
+    <Box
+      p={6}
+      bg="white"
+      borderRadius="lg"
+      boxShadow="md"
+      display="flex"
+      minWidth="0"
+      height="100%"
+      overflow="auto"
+    >
+      <CodeEditor taskId={taskId} isDailyTask={false} startTime={""} />
+    </Box>
+  </StyledSplitPane>
+</Box>
+
   );
 }
 
@@ -68,19 +70,20 @@ export default AssignmentEditor;
 const StyledSplitPane = styled(SplitPane)`
   height: 100%;
   box-sizing: border-box;
-  
+
   .Resizer {
-    background: #5a67d8;
+    background: #56c1aa;
     z-index: 10;
     box-sizing: inherit;
     background-clip: padding-box;
     width: 10px;
     cursor: col-resize;
     transition: background 0.2s ease, width 0.2s ease;
+    border-radius: 4px;
   }
 
   .Resizer:hover {
-    background: #4c51bf;
+    background: #2a7a69;
     width: 12px;
   }
 
@@ -97,3 +100,4 @@ const StyledSplitPane = styled(SplitPane)`
     cursor: not-allowed;
   }
 `;
+

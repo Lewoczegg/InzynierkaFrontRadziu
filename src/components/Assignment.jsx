@@ -147,30 +147,55 @@ const Assignment = ({ assignmentId }) => {
   }
 
   return (
-    <Box w="100%" p={2} borderRadius="md">
-      <Tabs variant="soft-rounded" colorScheme="purple">
-        <TabList ml="4">
-          <Tab _selected={{ color: "white", bg: "teal.500" }}>Problem</Tab>
-          <Tab _selected={{ color: "white", bg: "teal.500" }}>Solutions</Tab>
-          <Tab _selected={{ color: "white", bg: "teal.500" }}>Grade</Tab>
+    <Box
+      w="100%"
+      p={4}
+      bgGradient="linear(to-b, #f5f7fa, #e9eff5)"
+      borderRadius="lg"
+      boxShadow="lg"
+    >
+      <Tabs variant="soft-rounded" colorScheme="teal">
+        <TabList>
+          <Tab
+            _selected={{
+              color: "white",
+              bgGradient: "linear(to-r, teal.400, teal.500, teal.600)",
+            }}
+          >
+            Problem
+          </Tab>
+          <Tab
+            _selected={{
+              color: "white",
+              bgGradient: "linear(to-r, teal.400, teal.500, teal.600)",
+            }}
+          >
+            Solutions
+          </Tab>
+          <Tab
+            _selected={{
+              color: "white",
+              bgGradient: "linear(to-r, teal.400, teal.500, teal.600)",
+            }}
+          >
+            Grade
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <Box
-              bg="#1b1133"
+              bg="white"
               p={6}
-              borderWidth="1px"
-              borderRadius="md"
+              borderRadius="lg"
               boxShadow="md"
-              color="gray.100"
-              mb={6}
+              color="gray.700"
             >
               {assignment?.assignment ? (
                 <>
-                  <Text fontSize="2xl" mb={4} fontWeight="bold" color="white">
+                  <Text fontSize="2xl" mb={4} fontWeight="bold" color="teal.600">
                     {assignment.assignment.title}
                   </Text>
-                  <Text fontSize="md" mb={4}>
+                  <Text fontSize="md" mb={4} color="gray.600">
                     {assignment.assignment.description.split("\n").map((line, index) => (
                       <span key={index}>
                         {line}
@@ -186,29 +211,38 @@ const Assignment = ({ assignmentId }) => {
           </TabPanel>
 
           <TabPanel>
-            {isBlurVisible && (
-              <Box
-                position="absolute"
-                top="50px"
-                left="0"
-                right="0"
-                bottom="0"
-                bg="rgba(0, 0, 0, 0.5)"
-                backdropFilter="blur(5px)"
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                zIndex="10"
-                borderRadius="md"
-                onClick={handleBlurClick}
-                cursor="pointer"
-              >
-                <Text color="white" fontSize="lg">
-                  Click to view the content
-                </Text>
-              </Box>
-            )}
-            <Solutions assignmentId={assignmentId} />
+            <Box
+              bg="white"
+              p={6}
+              borderRadius="lg"
+              boxShadow="md"
+              position="relative"
+              color="gray.700"
+            >
+              {isBlurVisible && (
+                <Box
+                  position="absolute"
+                  top="0"
+                  left="0"
+                  right="0"
+                  bottom="0"
+                  bg="rgba(0, 0, 0, 0.5)"
+                  backdropFilter="blur(5px)"
+                  display="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  zIndex="10"
+                  borderRadius="lg"
+                  onClick={handleBlurClick}
+                  cursor="pointer"
+                >
+                  <Text color="white" fontSize="lg">
+                    Click to view the content
+                  </Text>
+                </Box>
+              )}
+              <Solutions assignmentId={assignmentId} />
+            </Box>
           </TabPanel>
 
           <TabPanel>
@@ -218,9 +252,8 @@ const Assignment = ({ assignmentId }) => {
               </Center>
             ) : submissionError || !latestSubmission ? (
               <Box
-                bg="#1b1133"
+                bg="white"
                 borderRadius="lg"
-                w="100%"
                 p={6}
                 textAlign="center"
                 boxShadow="md"
@@ -234,11 +267,10 @@ const Assignment = ({ assignmentId }) => {
                 <Box
                   w="100%"
                   p={6}
-                  bg="#48bb78"
-                  borderWidth="1px"
-                  borderRadius="md"
+                  bgGradient="linear(to-r, teal.400, teal.500)"
+                  borderRadius="lg"
+                  boxShadow="lg"
                   color="white"
-                  boxShadow="md"
                 >
                   <Text fontSize="2xl" fontWeight="bold">
                     Grade: {latestSubmission.grade}
@@ -248,20 +280,18 @@ const Assignment = ({ assignmentId }) => {
                 <Box
                   w="100%"
                   p={6}
-                  bg="#2c1e4b"
-                  borderWidth="1px"
-                  borderRadius="md"
+                  bg="white"
+                  borderRadius="lg"
                   boxShadow="md"
-                  color="gray.100"
+                  color="gray.700"
                 >
-                  <Text fontWeight="bold" mb={2}>
+                  <Text fontWeight="bold" mb={2} color="teal.600">
                     Solution Code:
                   </Text>
                   <pre
                     style={{
                       whiteSpace: "pre-wrap",
                       wordWrap: "break-word",
-                      color: "#c3c3c3",
                     }}
                   >
                     {latestSubmission.content}
@@ -274,17 +304,16 @@ const Assignment = ({ assignmentId }) => {
       </Tabs>
 
       {videoExists && (
-        <Box mt={2} p={4} bg="#1b1133" borderRadius="lg" boxShadow="md">
-          <Text fontSize="lg" mb={4} color="gray.100">
-            Tutorial Video
-          </Text>
+        <Box mt={6}
+          p={4}
+        >
           <VideoPlayer fileName={`${assignmentId}`} />
         </Box>
       )}
 
       {assignment?.roles === "ROLE_ADMIN" && (
-        <Box mt={6} p={6} bg="#1b1133" borderRadius="lg" boxShadow="lg">
-          <Text fontSize="lg" mb={4} color="gray.100" fontWeight="bold">
+        <Box mt={6} p={6} bg="white" borderRadius="lg" boxShadow="lg">
+          <Text fontSize="lg" mb={4} color="teal.600" fontWeight="bold">
             Upload Video
           </Text>
 
@@ -296,17 +325,17 @@ const Assignment = ({ assignmentId }) => {
           />
 
           <Button
-            colorScheme="teal"
-            variant="outline"
+            bgGradient="linear(to-r, #2a7a69, #316fa8)"
+            color="white"
             onClick={handleClick}
             mb={2}
             _hover={{
-              bg: "teal.600",
-              color: "white",
+              bgGradient: "linear(to-r, teal.500, teal.600)",
+              boxShadow: "xl",
             }}
             _active={{
-              bg: "teal.700",
-              transform: "scale(0.95)",
+              bgGradient: "linear(to-r, teal.600, teal.700)",
+              transform: "scale(0.98)",
             }}
           >
             Choose File

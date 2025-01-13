@@ -25,12 +25,14 @@ function DailyTaskTile() {
       transition="transform 0.2s, box-shadow 0.2s"
       _hover={{
         transform: 'scale(1.05)',
-        boxShadow: 'xl',
+        boxShadow: 'lg',
       }}
       flex="1"
+      borderRadius="md"
+      border="transparent"
     >
       <Box
-        bg="orange.400"
+        bg="#c05621"
         borderRadius="md"
         width="10px"
         marginRight="8px"
@@ -40,19 +42,20 @@ function DailyTaskTile() {
       <Box
         flex="1"
         p={6}
-        bg="#2c1e4b"
+        bg="#f7f9fc"
         borderRadius="md"
+        boxShadow="md"
         display="flex"
         flexDirection="column"
         alignItems="center"
         justifyContent="center"
       >
         <VStack spacing={4} align="center">
-          <Icon as={FiClipboard} w={16} h={16} color="yellow.300" />
-          <Text fontSize="2xl" fontWeight="bold" color="gray.100">
+          <Icon as={FiClipboard} w={16} h={16} color="#8c3d1b" />
+          <Text fontSize="2xl" fontWeight="bold" color="gray.800">
             Daily Task
           </Text>
-          <Text fontSize="md" color="gray.100">
+          <Text fontSize="md" color="gray.600">
             Complete a new challenge and improve your skills today!
           </Text>
         </VStack>

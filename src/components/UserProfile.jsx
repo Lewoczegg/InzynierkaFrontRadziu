@@ -28,23 +28,23 @@ const UserProfile = () => {
     const getUserProgress = async () => {
       try {
         const data = await fetchUserProgress();
-      
+
         const coursesArray = Object.keys(data).map((key) => ({
           courseKey: key,
           ...data[key]
         }));
-    
+
         coursesArray.sort((a, b) => {
           const numA = parseInt(a.courseTitle.split(".")[0].trim());
           const numB = parseInt(b.courseTitle.split(".")[0].trim());
           return numA - numB;
         });
-    
+
         const sortedData = coursesArray.reduce((acc, course) => {
           acc[course.courseKey] = course;
           return acc;
         }, {});
-    
+
         setUserProgress(sortedData);
       } catch (err) {
         setError("Failed to fetch user progress. Please try again later.");
@@ -52,7 +52,7 @@ const UserProfile = () => {
         setLoadingUserProgress(false);
       }
     };
-    
+
 
     const getCompletionPercentages = async () => {
       try {
@@ -95,49 +95,39 @@ const UserProfile = () => {
 
   const getBorderColor = (level) => {
     if (level >= 1 && level <= 3) {
-      return "white";
+      return "teal.400";
     } else if (level >= 4 && level <= 6) {
-      return "green.500";
+      return "green.400";
     } else if (level >= 7 && level <= 9) {
-      return "red.500";
+      return "red.400";
     } else {
-      return "gray.500";
+      return "teal.400";
     }
   };
 
   return (
-    <Box
-      minH="100vh"
-      bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-      color="gray.300"
-      p={10}
-    >
+    <Box minH="100vh" bgGradient="linear(to-b, #f5f7fa, #e9eff5)" color="gray.800" p={10}>
       <Box
-        bg="#1b1133"
+        bgGradient="linear(to-r, #2a7a69, #316fa8)"
         borderRadius="lg"
         p={8}
         mb={10}
-        boxShadow="lg"
         textAlign="center"
+        color="white"
+        boxShadow="0px 4px 12px rgba(0, 0, 0, 0.1)"
       >
-        <Text fontSize={{ base: "3xl", md: "4xl" }} color="white" mb={4}>
+        <Text fontSize={{ base: "3xl", md: "4xl" }} fontWeight="bold" mb={4}>
           User Profile
         </Text>
-        <Text fontSize={{ base: "md", md: "lg" }} color="gray.300">
+        <Text fontSize={{ base: "md", md: "lg" }}>
           View your personal details and track your learning progress here.
         </Text>
       </Box>
 
       <HStack align="start" spacing={8} w="100%">
         <VStack align="stretch" w="30%" spacing={6}>
-          <Box
-            p={6}
-            bg="#2c1e4b"
-            borderRadius="lg"
-            boxShadow="md"
-            color="white"
-            textAlign="center"
-          >
+          {/* Level & Title */}
+          <Box p={6} bg="white" borderRadius="lg" boxShadow="md" color="gray.800" textAlign="center">
             <Text fontWeight="bold" fontSize="2xl" mb={4}>
               Level & Title
             </Text>
@@ -150,7 +140,6 @@ const UserProfile = () => {
                   w="100%"
                   h="100%"
                   borderRadius="50%"
-                  bg="#1e1e1e"
                   borderWidth="8px"
                   borderColor={getBorderColor(userInfo.level)}
                   display="flex"
@@ -165,53 +154,43 @@ const UserProfile = () => {
               </Box>
             </Flex>
 
-            <Text
-              fontSize="3xl"
-              fontWeight="extrabold"
-              color="teal.400"
-              animation="fadeIn 2s ease-in-out"
-            >
+            <Text fontSize="3xl" fontWeight="extrabold" color="teal.400">
               {userInfo.title}
             </Text>
-            <style jsx>{`
-              @keyframes fadeIn {
-                0% {
-                  opacity: 0;
-                }
-                100% {
-                  opacity: 1;
-                }
-              }
-            `}</style>
-
           </Box>
 
-          <Box
-            p={6}
-            bg="#2c1e4b"
-            borderRadius="lg"
-            boxShadow="md"
-            color="white"
-          >
+          {/* User Information */}
+          <Box p={6} bg="white" borderRadius="lg" boxShadow="md" color="gray.800">
             <Text fontWeight="bold" fontSize="2xl" mb={4}>
               User Information
             </Text>
             {userInfo ? (
               <VStack align="start" spacing={4}>
-                <Text><b>First Name:</b> {userInfo.firstName}</Text>
-                <Text><b>Surname:</b> {userInfo.surname}</Text>
-                <Text><b>Email:</b> {userInfo.email}</Text>
-                <Text><b>Age:</b> {userInfo.age}</Text>
-                <Text><b>Username:</b> {userInfo.username}</Text>
+                <Text>
+                  <b>First Name:</b> {userInfo.firstName}
+                </Text>
+                <Text>
+                  <b>Surname:</b> {userInfo.surname}
+                </Text>
+                <Text>
+                  <b>Email:</b> {userInfo.email}
+                </Text>
+                <Text>
+                  <b>Age:</b> {userInfo.age}
+                </Text>
+                <Text>
+                  <b>Username:</b> {userInfo.username}
+                </Text>
               </VStack>
             ) : (
               <Text>No user information available.</Text>
             )}
           </Box>
 
+          {/* Progress Overview */}
           <Box
             p={6}
-            bg="#2c1e4b"
+            bgGradient="linear(to-r, #6a11cb, #2575fc)"
             borderRadius="lg"
             boxShadow="md"
             color="white"
@@ -223,58 +202,28 @@ const UserProfile = () => {
               <Text fontWeight="bold" mb={2}>
                 Assignment Completion
               </Text>
-              <Progress
-                value={assignmentCompletion}
-                colorScheme="teal"
-                size="lg"
-                borderRadius="md"
-                mb={2}
-              />
-              <Text fontSize="lg" color="gray.300">
-                {assignmentCompletion}%
-              </Text>
+              <Progress value={assignmentCompletion} colorScheme="teal" size="lg" borderRadius="md" mb={2} />
+              <Text fontSize="lg">{assignmentCompletion}%</Text>
             </Box>
             <Box mb={4}>
               <Text fontWeight="bold" mb={2}>
                 Course Completion
               </Text>
-              <Progress
-                value={courseCompletion}
-                colorScheme="purple"
-                size="lg"
-                borderRadius="md"
-                mb={2}
-              />
-              <Text fontSize="lg" color="gray.300">
-                {courseCompletion}%
-              </Text>
+              <Progress value={courseCompletion} colorScheme="purple" size="lg" borderRadius="md" mb={2} />
+              <Text fontSize="lg">{courseCompletion}%</Text>
             </Box>
             <Box>
               <Text fontWeight="bold" mb={2}>
                 Lesson Completion
               </Text>
-              <Progress
-                value={lessonCompletion}
-                colorScheme="pink"
-                size="lg"
-                borderRadius="md"
-                mb={2}
-              />
-              <Text fontSize="lg" color="gray.300">
-                {lessonCompletion}%
-              </Text>
+              <Progress value={lessonCompletion} colorScheme="pink" size="lg" borderRadius="md" mb={2} />
+              <Text fontSize="lg">{lessonCompletion}%</Text>
             </Box>
           </Box>
         </VStack>
 
-        <Box
-          w="70%"
-          p={6}
-          bg="#2c1e4b"
-          borderRadius="lg"
-          boxShadow="md"
-          color="white"
-        >
+        {/* User Progress */}
+        <Box w="70%" p={6} bg="white" borderRadius="lg" boxShadow="md" color="gray.800">
           <Text fontWeight="bold" fontSize="2xl" mb={4}>
             User Progress
           </Text>
@@ -284,10 +233,10 @@ const UserProfile = () => {
                 <AccordionItem key={courseIndex} border="none">
                   <h2>
                     <AccordionButton
-                      _expanded={{ bg: "#3b2763", color: "white" }}
+                      _expanded={{ bg: "teal.100", color: "teal.800" }}
                       transition="background-color 0.2s ease-in-out"
                     >
-                      <Box flex="1" textAlign="left" fontWeight="bold" color="teal.300">
+                      <Box flex="1" textAlign="left" fontWeight="bold" color="teal.600">
                         {course.courseTitle}
                       </Box>
                       <AccordionIcon />
@@ -300,10 +249,10 @@ const UserProfile = () => {
                           <AccordionItem key={lessonIndex} border="none">
                             <h2>
                               <AccordionButton
-                                _expanded={{ bg: "#45357a", color: "white" }}
+                                _expanded={{ bg: "purple.100", color: "purple.800" }}
                                 transition="background-color 0.2s ease-in-out"
                               >
-                                <Box flex="1" textAlign="left" fontWeight="bold" color="yellow.300">
+                                <Box flex="1" textAlign="left" fontWeight="bold" color="purple.600">
                                   {lesson.lessonTitle}
                                 </Box>
                                 <AccordionIcon />
@@ -317,10 +266,9 @@ const UserProfile = () => {
                                       key={assignmentIndex}
                                       p={6}
                                       borderRadius="md"
-                                      bg="#1b1133"
-                                      boxShadow="lg"
-                                      color="gray.100"
-                                      width="100%"
+                                      bg="gray.100"
+                                      boxShadow="md"
+                                      color="gray.700"
                                     >
                                       <Text fontSize="lg" fontWeight="bold" mb={2}>
                                         Assignment: {assignment.assignmentTitle}
@@ -335,14 +283,14 @@ const UserProfile = () => {
                                   ))}
                                 </SimpleGrid>
                               ) : (
-                                <Text color="gray.400">No assignments completed yet.</Text>
+                                <Text color="gray.500">No assignments completed yet.</Text>
                               )}
                             </AccordionPanel>
                           </AccordionItem>
                         ))}
                       </Accordion>
                     ) : (
-                      <Text>No lessons completed yet.</Text>
+                      <Text color="gray.500">No lessons completed yet.</Text>
                     )}
                   </AccordionPanel>
                 </AccordionItem>

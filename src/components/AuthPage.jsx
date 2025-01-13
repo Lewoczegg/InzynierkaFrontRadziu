@@ -9,10 +9,6 @@ const AuthPage = () => {
   return (
     <Box w="100%" maxW="md" mx="auto" p={4} borderWidth="1px" borderRadius="md" mt={12}>
       <VStack spacing={4}>
-        <Text fontSize="2xl" mb={4}>
-          {isLoginView ? "Login" : "Register"}
-        </Text>
-
         {isLoginView ? (
           <LoginForm />
         ) : (
@@ -21,7 +17,7 @@ const AuthPage = () => {
 
         <Button
           variant="link"
-          colorScheme="blue"
+          colorScheme="teal.700"
           onClick={() => setIsLoginView(!isLoginView)}
         >
           {isLoginView

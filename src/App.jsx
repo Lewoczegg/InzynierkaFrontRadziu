@@ -34,40 +34,41 @@ function App() {
   return (
     <Box
       minH="100vh"
-      bgGradient="linear(to-b, #0f0a19, #1a1a40)"
-      color="gray.500"
+      bgGradient="linear(to-b, #f5f7fa, #e4e8ec)"
+      color="gray.700"
       display="flex"
       flexDirection="column"
       overflow="hidden"
     >
       <Box height="36px" flexShrink={0}>
-      <MenuBar />
+        <MenuBar />
       </Box>
-      <Box flex="1" overflow="hidden" >
+      <Box flex="1" overflow="hidden">
         <Routes>
           <Route
             path="/"
             element={
               <Box flex="1" minH="100%" overflow="hidden">
                 <Box
-                  bg="#1b1133"
+                  bg="#ffffff"
                   borderRadius="lg"
                   p={8}
                   mb={10}
                   mt={10}
                   boxShadow="lg"
                   textAlign="center"
+                  border="1px solid #d9dde3"
                   transition="transform 0.3s ease, box-shadow 0.3s ease"
                   _hover={{ transform: "scale(1.02)", boxShadow: "xl" }}
                 >
                   <Heading
                     fontSize={{ base: "3xl", md: "4xl" }}
-                    color="white"
+                    color="gray.800"
                     mb={4}
                   >
                     Welcome to Code-Series!
                   </Heading>
-                  <Text fontSize={{ base: "md", md: "lg" }} color="gray.300" mb={4}>
+                  <Text fontSize={{ base: "md", md: "lg" }} color="gray.600" mb={4}>
                     Join us in exploring our courses, lessons, assignments, daily quizzes, and tasks. Let your learning journey begin!
                   </Text>
                   <Button
@@ -104,24 +105,28 @@ function App() {
                 >
                   <Box
                     p={6}
-                    bg="#1b1133"
+                    bg="#f7f9fc"
                     borderRadius="md"
                     boxShadow="md"
                     flex="1"
                     transition="transform 0.3s ease, box-shadow 0.3s ease"
+                    border="1px solid #d9dde3"
                     _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
                   >
-                    <Text color="white" fontSize="2xl" fontWeight="bold" mb={3}>
+                    <Text color="gray.800" fontSize="2xl" fontWeight="bold" mb={3}>
                       Explore our Courses
                     </Text>
-                    <Text color="gray.400" mb={4}>
+                    <Text color="gray.600" mb={4}>
                       Start learning with our well-prepared courses to master your skills.
                     </Text>
                     <Button
                       rightIcon={<FaArrowRight />}
-                      colorScheme="purple"
-                      variant="outline"
+                      colorScheme="blue"
+                      variant="solid"
                       size="md"
+                      bg="#316fa8"
+                      color="white"
+                      _hover={{ bg: "#25547b" }}
                       onClick={() => handleButtonClick("/courses")}
                     >
                       Start Learning
@@ -130,24 +135,28 @@ function App() {
 
                   <Box
                     p={6}
-                    bg="#1b1133"
+                    bg="#f7f9fc"
                     borderRadius="md"
                     boxShadow="md"
                     flex="1"
                     transition="transform 0.3s ease, box-shadow 0.3s ease"
+                    border="1px solid #d9dde3"
                     _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
                   >
-                    <Text color="white" fontSize="2xl" fontWeight="bold" mb={3}>
+                    <Text color="gray.800" fontSize="2xl" fontWeight="bold" mb={3}>
                       Check your Assignments
                     </Text>
-                    <Text color="gray.400" mb={4}>
+                    <Text color="gray.600" mb={4}>
                       Keep up with your progress by completing assignments.
                     </Text>
                     <Button
                       rightIcon={<FaArrowRight />}
                       colorScheme="teal"
-                      variant="outline"
+                      variant="solid"
                       size="md"
+                      bg="#2a7a69"
+                      color="white"
+                      _hover={{ bg: "#20594d" }}
                       onClick={() => handleButtonClick("/assignments")}
                     >
                       Go to Assignments
@@ -156,30 +165,35 @@ function App() {
 
                   <Box
                     p={6}
-                    bg="#1b1133"
+                    bg="#f7f9fc"
                     borderRadius="md"
                     boxShadow="md"
                     flex="1"
                     transition="transform 0.3s ease, box-shadow 0.3s ease"
+                    border="1px solid #d9dde3"
                     _hover={{ transform: "scale(1.05)", boxShadow: "lg" }}
                   >
-                    <Text color="white" fontSize="2xl" fontWeight="bold" mb={3}>
+                    <Text color="gray.800" fontSize="2xl" fontWeight="bold" mb={3}>
                       Join the Ranking
                     </Text>
-                    <Text color="gray.400" mb={4}>
+                    <Text color="gray.600" mb={4}>
                       Compete with others and see your place in our ranking.
                     </Text>
                     <Button
                       rightIcon={<FaArrowRight />}
                       colorScheme="orange"
-                      variant="outline"
+                      variant="solid"
                       size="md"
+                      bg="#c05621"
+                      color="white"
+                      _hover={{ bg: "#8c3d1b" }}
                       onClick={() => handleButtonClick("/ranking")}
                     >
                       See the Ranking
                     </Button>
                   </Box>
                 </Flex>
+
               </Box>
             }
           />
