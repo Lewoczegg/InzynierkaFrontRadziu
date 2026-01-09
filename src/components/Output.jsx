@@ -238,29 +238,6 @@ const Output = ({ editorRef, language, taskId, isDailyTask, startTime }) => {
                         Submit
                     </Button>
                 </Box>
-                <Box>
-                    <Button
-                        variant="solid"
-                        bgGradient="linear(to-r, #319795, #38b2ac)"
-                        color="white"
-                        _hover={{ bgGradient: "linear(to-r, #2c7a7b, #319795)" }}
-                        ml={2}
-                        isLoading={isLoading}
-                        onClick={analyzeCode}
-                    >
-                        Analyze Code
-                    </Button>
-                    <Button
-                        variant="solid"
-                        bgGradient="linear(to-r, #805ad5, #9f7aea)"
-                        color="white"
-                        _hover={{ bgGradient: "linear(to-r, #6b46c1, #805ad5)" }}
-                        ml={2}
-                        onClick={onOpen}
-                    >
-                        View Analysis Result
-                    </Button>
-                </Box>
             </Flex>
 
             <Modal isOpen={isOpen} onClose={onClose} isCentered>
